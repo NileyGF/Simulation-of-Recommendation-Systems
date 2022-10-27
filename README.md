@@ -1,4 +1,4 @@
-# Product-Recommendation-Simulation
+# Simulation-of-Recommendation-Systems
 
 Desarrollaremos entornos simulados para un sistema de recomendación de una tienda virtual de música. 
 El proceso de simulación permitirá evaluar la eficacia del sistema; aceptando o rechazando las recomendaciones, al simular clientes con preferencias dinámicas y socialmente influenciables. Para esto habrá que representar las interacciones entre usuarios. A través de reseñas o comentarios sobre artistas, géneros o canciones.
