@@ -183,7 +183,7 @@ class Music_store():
         self.posts = []
         self.recommender = recommender
             
-evd    def user_arrival(self,user:agent.Agent):
+    def user_arrival(self,user:agent.Agent):
         # rnd.seed(time.time())
         # self.next_arrival = min(self.next_arrival,self.next_departure,self.close_time)
         # if not (self.next_arrival <= self.next_departure and self.next_arrival <= self.close_time):
