@@ -1,351 +1,340 @@
 song_id,title,number of artists,artists,genres,Release Year,listen_count
-1,Caught Up in You,1,['.38 Special'],['classic rock'],1982,134
-2,Fantasy Girl,1,['.38 Special'],['classic rock'],,64
-3,Hold On Loosely,1,['.38 Special'],['classic rock'],1981,113
-4,Rockin' Into the Night,1,['.38 Special'],['classic rock'],1980,0
-5,Art For Arts Sake,1,['10cc'],['classic rock'],1975,123
-6,Kryptonite,1,['3 Doors Down'],['classic rock'],2000,84
-7,Loser,1,['3 Doors Down'],['classic rock'],2000,69
-8,When I'm Gone,1,['3 Doors Down'],['classic rock'],2002,6
-9,What's Up?,1,['4 Non Blondes'],['classic rock'],1992,127
-10,Take On Me,1,['a-ha'],['classic rock'],1985,102
-11,"Baby, Please Don't Go",1,['AC/DC'],['classic rock'],,126
-12,Back In Black,1,['AC/DC'],['classic rock'],1980,198
-13,Big Gun,1,['AC/DC'],['classic rock'],1993,182
-14,CAN'T STOP ROCK'N'ROLL,1,['AC/DC'],['classic rock'],,160
-15,Dirty Deeds Done Dirt Cheap,1,['AC/DC'],['classic rock'],1976,0
-16,For Those About To Rock,1,['AC/DC'],['classic rock'],1981,10
-17,Girls Got Rhythm,1,['AC/DC'],['classic rock'],,62
-18,Hard As A Rock,1,['AC/DC'],['classic rock'],1995,148
-19,Have a Drink On Me,1,['AC/DC'],['classic rock'],1980,145
-20,Hells Bells,1,['AC/DC'],['classic rock'],1980,126
-21,Highway To Hell,1,['AC/DC'],['classic rock'],1979,62
-22,It's A Long Way To The Top,1,['AC/DC'],['classic rock'],1975,91
-23,Jailbreak,1,['AC/DC'],['classic rock'],1984,175
-24,Let There Be Rock,1,['AC/DC'],['classic rock'],1977,198
-25,Let's Get It Up,1,['AC/DC'],['classic rock'],,0
-26,Live Wire,1,['AC/DC'],['classic rock'],,52
-27,Moneytalks,1,['AC/DC'],['classic rock'],,66
-28,Night Prowler,1,['AC/DC'],['classic rock'],1979,111
-29,Rock and Roll Ain't Noise Pollution,1,['AC/DC'],['classic rock'],1980,210
-30,Shoot To Thrill,1,['AC/DC'],['classic rock'],,35
-31,Shot Down In Flames,1,['AC/DC'],['classic rock'],1979,78
-32,Sin City,1,['AC/DC'],['classic rock'],,155
-33,T.N.T.,1,['AC/DC'],['classic rock'],1975,89
-34,Thunderstruck,1,['AC/DC'],['classic rock'],1990,68
-35,Touch Too Much,1,['AC/DC'],['classic rock'],1979,182
-36,What Do You Do For Money Honey,1,['AC/DC'],['classic rock'],,0
-37,Who Made Who,1,['AC/DC'],['classic rock'],1986,73
-38,Whole Lotta Rosie,1,['AC/DC'],['classic rock'],1977,130
-39,You Shook Me All Night Long,1,['AC/DC'],['classic rock'],1980,50
-40,How Long,1,['Ace'],['classic rock'],1974,54
-41,Dog On A Leash,1,['Adelitas Way'],['classic rock'],2014,111
-42,Angel,1,['Aerosmith'],['classic rock'],1987,34
-43,"Baby, Please Don't Go",1,['Aerosmith'],['classic rock'],,27
-44,Back in the Saddle,1,['Aerosmith'],['classic rock'],1976,101
-45,Big Ten Inch,1,['Aerosmith'],['classic rock'],1975,36
-46,Come Together,1,['Aerosmith'],['classic rock'],,0
-47,Crazy,1,['Aerosmith'],['classic rock'],1993,11
-48,Cryin',1,['Aerosmith'],['classic rock'],1993,19
-49,Draw The Line,1,['Aerosmith'],['classic rock'],1977,106
-50,Dream On,1,['Aerosmith'],['classic rock'],1973,131
-51,Dude (Looks Like a Lady),1,['Aerosmith'],['classic rock'],1987,115
-52,Jaded,1,['Aerosmith'],['classic rock'],2001,129
-53,Janie's Got A Gun,1,['Aerosmith'],['classic rock'],1989,106
-54,Kings and Queens,1,['Aerosmith'],['classic rock'],,106
-55,Last Child,1,['Aerosmith'],['classic rock'],1976,98
-56,Let the Music Do the Talking,1,['Aerosmith'],['classic rock'],1985,57
-57,Livin' On The Edge,1,['Aerosmith'],['classic rock'],1993,200
-58,Love In An Elevator,1,['Aerosmith'],['classic rock'],1989,195
-59,Mama Kin,1,['Aerosmith'],['classic rock'],1973,164
-60,No More No More,1,['Aerosmith'],['classic rock'],1975,69
-61,One Way Street,1,['Aerosmith'],['classic rock'],,169
-62,Pink,1,['Aerosmith'],['classic rock'],1997,93
-63,Rag Doll,1,['Aerosmith'],['classic rock'],1987,245
-64,Same Old Song and Dance,1,['Aerosmith'],['classic rock'],1974,33
-65,Seasons of Wither,1,['Aerosmith'],['classic rock'],1974,11
-66,Sweet Emotion,1,['Aerosmith'],['classic rock'],1975,111
-67,The Other Side,1,['Aerosmith'],['classic rock'],,173
-68,Toys in the Attic,1,['Aerosmith'],['classic rock'],1975,80
-69,Train Kept A-Rollin',1,['Aerosmith'],['classic rock'],1974,46
-70,Walk This Way,1,['Aerosmith'],['classic rock'],1975,113
-71,What It Takes,1,['Aerosmith'],['classic rock'],1989,112
-72,You See Me Crying,1,['Aerosmith'],['classic rock'],,82
-73,Hand In My Pocket,1,['Alanis Morissette'],['classic rock'],1995,104
-74,You Oughta Know,1,['Alanis Morissette'],['classic rock'],1995,124
-75,Black Velvet,1,['Alannah Myles'],['classic rock'],1989,115
-76,Fantasy,1,['Aldo Nova'],['classic rock'],,99
-77,BE MY LOVER,1,['Alice Cooper'],['classic rock'],,96
-78,Billion Dollar Babies,1,['Alice Cooper'],['classic rock'],1973,37
-79,Eighteen,1,['Alice Cooper'],['classic rock'],1971,97
-80,Elected,1,['Alice Cooper'],['classic rock'],1973,88
-81,House Of Fire,1,['Alice Cooper'],['classic rock'],,9
-82,I'm Eighteen,1,['Alice Cooper'],['classic rock'],1971,179
-83,No More Mr. Nice Guy,1,['Alice Cooper'],['classic rock'],1973,81
-84,School's Out,1,['Alice Cooper'],['classic rock'],1972,120
-85,Under My Wheels,1,['Alice Cooper'],['classic rock'],1971,134
-86,Welcome To My Nightmare,1,['Alice Cooper'],['classic rock'],1975,38
-87,Down in a Hole,1,['Alice In Chains'],['classic rock'],1992,13
-88,Man In The Box,1,['Alice In Chains'],['classic rock'],1990,12
-89,No Excuses,1,['Alice In Chains'],['classic rock'],1994,58
-90,Rooster,1,['Alice In Chains'],['classic rock'],1992,48
-91,Them Bones,1,['Alice In Chains'],['classic rock'],1992,200
-92,Would?,1,['Alice In Chains'],['classic rock'],1992,82
-93,Ain't Wastin' Time No More,1,['Allman Brothers Band'],['classic rock'],1972,81
-94,Blue Sky,1,['Allman Brothers Band'],['classic rock'],1972,135
-95,Good Clean Fun,1,['Allman Brothers Band'],['classic rock'],1990,151
-96,In Memory Of Elizabeth Reed,1,['Allman Brothers Band'],['classic rock'],1970,129
-97,Jessica,1,['Allman Brothers Band'],['classic rock'],1973,94
-98,Melissa,1,['Allman Brothers Band'],['classic rock'],1972,84
-99,Midnight Rider,1,['Allman Brothers Band'],['classic rock'],1970,56
-100,No One to Run With,1,['Allman Brothers Band'],['classic rock'],1994,106
-101,One Way Out,1,['Allman Brothers Band'],['classic rock'],,104
-102,Ramblin' Man,1,['Allman Brothers Band'],['classic rock'],1973,135
-103,Southbound,1,['Allman Brothers Band'],['classic rock'],,0
-104,Statesboro Blues,1,['Allman Brothers Band'],['classic rock'],1971,171
-105,Whippin' Post,1,['Allman Brothers Band'],['classic rock'],,55
-106,A Horse With No Name,1,['America'],['classic rock'],1972,0
-107,Sister Golden Hair,1,['America'],['classic rock'],1975,53
-108,Ventura Highway,1,['America'],['classic rock'],1972,148
-109,Don't Bring Me Down,1,['Animals II'],['classic rock'],1966,80
-110,Don't Let Me Be Misunderstood,1,['Animals II'],['classic rock'],1965,65
-111,Immigrant Song,1,['Ann Wilson'],['classic rock'],,71
-112,Roller,1,['April Wine'],['classic rock'],,148
-113,Hold Your Head Up,1,['Argent'],['classic rock'],1972,178
-114,Coming into Los Angeles,1,['Arlo Guthrie'],['classic rock'],,55
-115,Wayside,1,['Artful Dodger'],['classic rock'],,97
-116,Heat of the Moment,1,['Asia'],['classic rock'],1982,48
-117,Only Time Will Tell,1,['Asia'],['classic rock'],1982,122
-118,So Into You,1,['Atlanta Rhythm Section'],['classic rock'],1976,43
-119,Spooky,1,['Atlanta Rhythm Section'],['classic rock'],,180
-120,Like a Stone,1,['Audioslave'],['classic rock'],2002,120
-121,Blondes In Black Cars,1,['Autograph'],['classic rock'],,86
-122,Turn Up the Radio,1,['Autograph'],['classic rock'],1984,193
-123,Rock And Roll Party In The Streets,1,['Axe'],['classic rock'],,167
-124,Let It Ride,1,['Bachman-Turner Overdrive'],['classic rock'],1973,71
-125,Roll On Down The Highway,1,['Bachman-Turner Overdrive'],['classic rock'],,0
-126,Takin' Care Of Business,1,['Bachman-Turner Overdrive'],['classic rock'],1973,81
-127,You Ain't Seen Nothin' Yet,1,['Bachman-Turner Overdrive'],['classic rock'],1974,11
-128,Bad Company,1,['Bad Company'],['classic rock'],1974,0
-129,Burnin' Sky,1,['Bad Company'],['classic rock'],1977,42
-130,Can't Get Enough,1,['Bad Company'],['classic rock'],1974,8
-131,Feel Like Makin' Love,1,['Bad Company'],['classic rock'],,83
-132,Gone Gone Gone,1,['Bad Company'],['classic rock'],,112
-133,Good Lovin' Gone Bad,1,['Bad Company'],['classic rock'],,96
-134,Movin' On,1,['Bad Company'],['classic rock'],,0
-135,Ready For Love,1,['Bad Company'],['classic rock'],,28
-136,Rock 'n' Roll Fantasy,1,['Bad Company'],['classic rock'],,125
-137,Rock Steady,1,['Bad Company'],['classic rock'],,69
-138,Run With The Pack,1,['Bad Company'],['classic rock'],,74
-139,Seagull,1,['Bad Company'],['classic rock'],1974,54
-140,Shooting Star,1,['Bad Company'],['classic rock'],1975,36
-141,"Silver, Blue And Gold",1,['Bad Company'],['classic rock'],,43
-142,When I See You Smile,1,['Bad English'],['classic rock'],1989,122
-143,No Matter What,1,['Badfinger'],['classic rock'],1970,83
-144,Walks Like A Woman,1,['Baton Rouge'],['classic rock'],,99
-145,(You Gotta) Fight for Your Right (To Party),1,['Beastie Boys'],['classic rock'],1986,181
-146,No Sleep Till Brooklyn,1,['Beastie Boys'],['classic rock'],1986,1
-147,Loser,1,['Beck'],['classic rock'],1994,159
+1,Caught Up in You,1,['.38 Special'],"['southern rock', 'hard rock']",1982,134
+2,Fantasy Girl,1,['.38 Special'],"['southern rock', 'hard rock']",,64
+3,Hold On Loosely,1,['.38 Special'],"['southern rock', 'hard rock', 'power pop']",1981,113
+4,Rockin' Into the Night,1,['.38 Special'],"['southern rock', 'hard rock']",1980,0
+5,Art For Arts Sake,1,['10cc'],"['progressive rock', 'hard rock']",1975,123
+6,Kryptonite,1,['3 Doors Down'],"['alternative rock', 'hard rock']",2000,84
+7,Loser,1,['3 Doors Down'],['hard rock'],2000,69
+8,When I'm Gone,1,['3 Doors Down'],['hard rock'],2002,6
+9,What's Up?,1,['4 Non Blondes'],"['alternative rock', 'pop rock']",1992,127
+10,Take On Me,1,['a-ha'],['synth pop'],1985,102
+11,"Baby, Please Don't Go",1,['AC/DC'],['hard rock'],,126
+12,Back In Black,1,['AC/DC'],"['hard rock', 'heavy metal']",1980,300
+13,Big Gun,1,['AC/DC'],['hard rock'],1993,182
+14,CAN'T STOP ROCK'N'ROLL,1,['AC/DC'],['hard rock'],,160
+15,Dirty Deeds Done Dirt Cheap,1,['AC/DC'],['hard rock'],1976,0
+16,For Those About To Rock,1,['AC/DC'],['hard rock'],1981,10
+17,Girls Got Rhythm,1,['AC/DC'],['hard rock'],,62
+18,Hard As A Rock,1,['AC/DC'],['hard rock'],1995,148
+19,Have a Drink On Me,1,['AC/DC'],['hard rock'],1980,145
+20,Hells Bells,1,['AC/DC'],['hard rock'],1980,126
+21,Highway To Hell,1,['AC/DC'],"['hard rock', 'heavy metal]",1979,200
+22,It's A Long Way To The Top,1,['AC/DC'],['hard rock'],1975,91
+23,Jailbreak,1,['AC/DC'],['hard rock'],1984,175
+24,Let There Be Rock,1,['AC/DC'],['hard rock'],1977,198
+25,Let's Get It Up,1,['AC/DC'],['hard rock'],,0
+26,Live Wire,1,['AC/DC'],['hard rock'],,52
+27,Moneytalks,1,['AC/DC'],['hard rock'],,66
+28,Night Prowler,1,['AC/DC'],['hard rock'],1979,111
+29,Rock and Roll Ain't Noise Pollution,1,['AC/DC'],['hard rock'],1980,210
+30,Shoot To Thrill,1,['AC/DC'],['hard rock'],,35
+31,Shot Down In Flames,1,['AC/DC'],['hard rock'],1979,78
+32,Sin City,1,['AC/DC'],"['hard rock', 'heavy metal]",,155
+33,T.N.T.,1,['AC/DC'],['hard rock'],1975,89
+34,Thunderstruck,1,['AC/DC'],['hard rock'],1990,68
+35,Touch Too Much,1,['AC/DC'],['hard rock'],1979,182
+36,What Do You Do For Money Honey,1,['AC/DC'],['hard rock'],,34
+37,Who Made Who,1,['AC/DC'],['hard rock'],1986,73
+38,Whole Lotta Rosie,1,['AC/DC'],['hard rock'],1977,130
+39,You Shook Me All Night Long,1,['AC/DC'],['hard rock'],1980,150
+40,How Long,1,['Ace'],['soft rock'],1974,54
+41,Dog On A Leash,1,['Adelitas Way'],['hard rock'],2014,111
+42,Angel,1,['Aerosmith'],['hard rock'],1987,34
+43,"Baby, Please Don't Go",1,['Aerosmith'],['hard rock'],,27
+44,Back in the Saddle,1,['Aerosmith'],['hard rock'],1976,101
+45,Big Ten Inch,1,['Aerosmith'],['hard rock'],1975,36
+46,Come Together,1,['Aerosmith'],['hard rock'],,87
+47,Crazy,1,['Aerosmith'],['hard rock'],1993,211
+48,Cryin',1,['Aerosmith'],['hard rock'],1993,19
+49,Draw The Line,1,['Aerosmith'],['hard rock'],1977,106
+50,Dream On,1,['Aerosmith'],['hard rock'],1973,131
+51,Dude (Looks Like a Lady),1,['Aerosmith'],['hard rock'],1987,115
+52,Jaded,1,['Aerosmith'],['hard rock'],2001,129
+53,Janie's Got A Gun,1,['Aerosmith'],['hard rock'],1989,106
+54,Kings and Queens,1,['Aerosmith'],['hard rock'],,106
+55,Last Child,1,['Aerosmith'],['hard rock'],1976,98
+56,Let the Music Do the Talking,1,['Aerosmith'],['hard rock'],1985,57
+57,Livin' On The Edge,1,['Aerosmith'],['hard rock'],1993,200
+58,Love In An Elevator,1,['Aerosmith'],['hard rock'],1989,195
+59,Mama Kin,1,['Aerosmith'],['hard rock'],1973,164
+60,No More No More,1,['Aerosmith'],['hard rock'],1975,69
+61,One Way Street,1,['Aerosmith'],['hard rock'],,169
+62,Pink,1,['Aerosmith'],['hard rock'],1997,93
+63,Rag Doll,1,['Aerosmith'],['hard rock'],1987,245
+64,Same Old Song and Dance,1,['Aerosmith'],['hard rock'],1974,33
+65,Seasons of Wither,1,['Aerosmith'],['hard rock'],1974,11
+66,Sweet Emotion,1,['Aerosmith'],['hard rock'],1975,111
+67,The Other Side,1,['Aerosmith'],['hard rock'],,173
+68,Toys in the Attic,1,['Aerosmith'],['hard rock'],1975,80
+69,Train Kept A-Rollin',1,['Aerosmith'],['hard rock'],1974,46
+70,Walk This Way,1,['Aerosmith'],['hard rock'],1975,113
+71,What It Takes,1,['Aerosmith'],['hard rock'],1989,112
+72,You See Me Crying,1,['Aerosmith'],['hard rock'],,82
+73,Hand In My Pocket,1,['Alanis Morissette'],['alternative rock'],1995,104
+74,You Oughta Know,1,['Alanis Morissette'],['alternative rock'],1995,124
+75,Black Velvet,1,['Alannah Myles'],['blues rock'],1989,115
+76,Fantasy,1,['Aldo Nova'],"['hard rock', 'pop rock']",,99
+77,BE MY LOVER,1,['Alice Cooper'],"['hard rock', 'glam rock']",,96
+78,Billion Dollar Babies,1,['Alice Cooper'],"['hard rock', 'glam rock']",1973,37
+79,Eighteen,1,['Alice Cooper'],"['hard rock', 'glam rock']",1971,97
+80,Elected,1,['Alice Cooper'],"['hard rock', 'glam rock']",1973,88
+81,House Of Fire,1,['Alice Cooper'],"['hard rock', 'glam rock']",,9
+82,I'm Eighteen,1,['Alice Cooper'],"['hard rock', 'glam rock']",1971,179
+83,No More Mr. Nice Guy,1,['Alice Cooper'],"['hard rock', 'glam rock']",1973,81
+84,School's Out,1,['Alice Cooper'],"['hard rock', 'glam rock']",1972,120
+85,Under My Wheels,1,['Alice Cooper'],"['hard rock', 'glam rock']",1971,134
+86,Welcome To My Nightmare,1,['Alice Cooper'],"['hard rock', 'glam rock']",1975,38
+87,Down in a Hole,1,['Alice In Chains'],"['grunge', 'hard rock', 'heavy metal']",1992,13
+88,Man In The Box,1,['Alice In Chains'],"['grunge', 'hard rock', 'heavy metal']",1990,12
+89,No Excuses,1,['Alice In Chains'],"['grunge', 'hard rock', 'heavy metal']",1994,58
+90,Rooster,1,['Alice In Chains'],"['grunge', 'hard rock', 'heavy metal']",1992,48
+91,Them Bones,1,['Alice In Chains'],"['grunge', 'hard rock', 'heavy metal']",1992,200
+92,Would?,1,['Alice In Chains'],"['grunge', 'hard rock', 'heavy metal']",1992,82
+93,Ain't Wastin' Time No More,1,['Allman Brothers Band'],"['southern rock', 'blues rock']",1972,81
+94,Blue Sky,1,['Allman Brothers Band'],"['southern rock', 'blues rock']",1972,135
+95,Good Clean Fun,1,['Allman Brothers Band'],"['southern rock', 'blues rock']",1990,151
+96,In Memory Of Elizabeth Reed,1,['Allman Brothers Band'],"['southern rock', 'blues rock']",1970,129
+97,Jessica,1,['Allman Brothers Band'],"['southern rock', 'blues rock']",1973,94
+98,Melissa,1,['Allman Brothers Band'],"['southern rock', 'blues rock']",1972,84
+99,Midnight Rider,1,['Allman Brothers Band'],"['southern rock', 'blues rock']",1970,56
+100,No One to Run With,1,['Allman Brothers Band'],"['southern rock', 'blues rock']",1994,106
+101,One Way Out,1,['Allman Brothers Band'],"['southern rock', 'blues rock']",,104
+102,Ramblin' Man,1,['Allman Brothers Band'],"['southern rock', 'blues rock']",1973,135
+103,Southbound,1,['Allman Brothers Band'],"['southern rock', 'blues rock']",,0
+104,Statesboro Blues,1,['Allman Brothers Band'],"['southern rock', 'blues rock']",1971,171
+105,Whippin' Post,1,['Allman Brothers Band'],"['southern rock', 'blues rock']",,55
+106,A Horse With No Name,1,['America'],"['soft rock', 'pop rock']",1972,0
+107,Sister Golden Hair,1,['America'],"['soft rock', 'pop rock']",1975,53
+108,Ventura Highway,1,['America'],"['soft rock', 'pop rock']",1972,148
+109,Don't Bring Me Down,1,['Animals II'],['hard rock'],1966,80
+110,Don't Let Me Be Misunderstood,1,['Animals II'],['hard rock'],1965,65
+111,Immigrant Song,1,['Ann Wilson'],['pop'],,71
+112,Roller,1,['April Wine'],['rock'],,148
+113,Hold Your Head Up,1,['Argent'],"['progressive rock', 'hard rock']",1972,178
+114,Coming into Los Angeles,1,['Arlo Guthrie'],['folk rock'],,55
+115,Wayside,1,['Artful Dodger'],['power pop'],,97
+116,Heat of the Moment,1,['Asia'],['progressive rock'],1982,48
+117,Only Time Will Tell,1,['Asia'],['progressive rock'],1982,122
+118,So Into You,1,['Atlanta Rhythm Section'],['southern rock'],1976,43
+119,Spooky,1,['Atlanta Rhythm Section'],['southern rock'],,180
+120,Like a Stone,1,['Audioslave'],"['alternative rock', 'hard rock']",2002,120
+121,Blondes In Black Cars,1,['Autograph'],['glam rock'],,86
+122,Turn Up the Radio,1,['Autograph'],['glam rock'],1984,193
+123,Rock And Roll Party In The Streets,1,['Axe'],['hard rock'],,167
+124,Let It Ride,1,['Bachman-Turner Overdrive'],"['hard rock', 'blues rock']",1973,71
+125,Roll On Down The Highway,1,['Bachman-Turner Overdrive'],"['hard rock', 'blues rock']",,0
+126,Takin' Care Of Business,1,['Bachman-Turner Overdrive'],"['hard rock', 'blues rock']",1973,81
+127,You Ain't Seen Nothin' Yet,1,['Bachman-Turner Overdrive'],"['hard rock', 'blues rock']",1974,11
+128,Bad Company,1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",1974,0
+129,Burnin' Sky,1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",1977,42
+130,Can't Get Enough,1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",1974,8
+131,Feel Like Makin' Love,1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",,83
+132,Gone Gone Gone,1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",,112
+133,Good Lovin' Gone Bad,1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",,96
+134,Movin' On,1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",,0
+135,Ready For Love,1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",,28
+136,Rock 'n' Roll Fantasy,1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",,125
+137,Rock Steady,1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",,69
+138,Run With The Pack,1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",,74
+139,Seagull,1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",1974,54
+140,Shooting Star,1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",1975,36
+141,"Silver, Blue And Gold",1,['Bad Company'],"['hard rock', 'blues rock', 'soft rock']",,43
+142,When I See You Smile,1,['Bad English'],['glam rock'],1989,122
+143,No Matter What,1,['Badfinger'],"['rock', 'power pop']",1970,83
+144,Walks Like A Woman,1,['Baton Rouge'],"['hard rock', 'glam rock']",,99
+145,(You Gotta) Fight for Your Right (To Party),1,['Beastie Boys'],['rap rock'],1986,181
+146,No Sleep Till Brooklyn,1,['Beastie Boys'],['rap rock'],1986,1
+147,Loser,1,['Beck'],"['alternative rock', 'hip hop']",1994,159
 148,In a Big Country,1,['Big Country'],['classic rock'],1983,86
-149,Rock Around the Clock,1,['Bill Haley'],['classic rock'],1955,165
-150,AIN'T NO SUNSHINE,1,['Bill Withers'],['classic rock'],1971,153
-151,Cradle of Love,1,['Billy Idol'],['classic rock'],1990,84
-152,Dancing With Myself,1,['Billy Idol'],['classic rock'],1980,0
-153,Eyes Without a Face,1,['Billy Idol'],['classic rock'],1984,201
-154,Mony Mony,1,['Billy Idol'],['classic rock'],,139
-155,Rebel Yell,1,['Billy Idol'],['classic rock'],1984,36
-156,White Wedding,1,['Billy Idol'],['classic rock'],1982,33
-157,Allentown,1,['Billy Joel'],['classic rock'],1982,134
-158,Big Shot,1,['Billy Joel'],['classic rock'],1978,113
-159,Captain Jack,1,['Billy Joel'],['classic rock'],1973,97
-160,Don't Ask Me Why,1,['Billy Joel'],['classic rock'],,1
-161,Goodnight Saigon,1,['Billy Joel'],['classic rock'],1983,0
-162,It's Still Rock And Roll To Me,1,['Billy Joel'],['classic rock'],1980,36
-163,Miami 2017 {seen The Lights Go Out On Broadway} (live 1,1,['Billy Joel'],['classic rock'],1976,20
-164,Movin' Out (Anthony's Song),1,['Billy Joel'],['classic rock'],1977,101
-165,My Life,1,['Billy Joel'],['classic rock'],1978,25
-166,New York State Of Mind,1,['Billy Joel'],['classic rock'],1976,92
-167,Only The Good Die Young,1,['Billy Joel'],['classic rock'],1977,130
-168,Piano Man,1,['Billy Joel'],['classic rock'],1973,174
-169,Prelude/angry Young Man,1,['Billy Joel'],['classic rock'],,164
-170,Scenes From An Italian Restaurant,1,['Billy Joel'],['classic rock'],1977,107
-171,SHE'S ALWAYS A WOMAN,1,['Billy Joel'],['classic rock'],1977,192
-172,Sometimes A Fantasy,1,['Billy Joel'],['classic rock'],1980,165
-173,The Ballad Of Billy The Kid,1,['Billy Joel'],['classic rock'],1973,159
-174,The Stranger,1,['Billy Joel'],['classic rock'],1977,42
-175,You May Be Right,1,['Billy Joel'],['classic rock'],1980,136
-176,Baby Come Back,1,['Billy Rankin'],['classic rock'],,134
-177,Everybody Wants You,1,['Billy Squier'],['classic rock'],,103
-178,In the Dark,1,['Billy Squier'],['classic rock'],,139
-179,Lonely Is the Night,1,['Billy Squier'],['classic rock'],1981,126
-180,My Kinda Lover,1,['Billy Squier'],['classic rock'],,67
-181,Rock Me Tonight,1,['Billy Squier'],['classic rock'],1984,138
-182,She's a Runner,1,['Billy Squier'],['classic rock'],,77
-183,The Stroke,1,['Billy Squier'],['classic rock'],1981,52
-184,Children Of The Sun,1,['Billy Thorpe'],['classic rock'],,94
-185,Fairies Wear Boots,1,['Black Sabbath'],['classic rock'],1970,99
-186,Heaven and Hell,1,['Black Sabbath'],['classic rock'],1980,164
-187,Iron Man,1,['Black Sabbath'],['classic rock'],1972,52
-188,N.i.b.,1,['Black Sabbath'],['classic rock'],1970,158
-189,Neon Knights,1,['Black Sabbath'],['classic rock'],1980,96
-190,Paranoid,1,['Black Sabbath'],['classic rock'],1970,196
-191,Sweet Leaf,1,['Black Sabbath'],['classic rock'],1971,182
-192,The Wizard,1,['Black Sabbath'],['classic rock'],1970,141
-193,War Pigs,1,['Black Sabbath'],['classic rock'],1970,152
-194,Highway Song,1,['Blackfoot'],['classic rock'],,78
-195,"Train, Train",1,['Blackfoot'],['classic rock'],1979,107
-196,Can't Find My Way Home,1,['Blind Faith'],['classic rock'],1969,48
-197,Presence of the Lord,1,['Blind Faith'],['classic rock'],1969,241
-198,No Rain,1,['Blind Melon'],['classic rock'],1992,53
-199,Presence of the Lord,1,['Blind Melon'],['classic rock'],,83
-200,All the Small Things,1,['Blink-182'],['classic rock'],1999,69
-201,Call Me,1,['Blondie'],['classic rock'],1980,104
-202,Heart of Glass,1,['Blondie'],['classic rock'],1978,81
-203,One Way Or Another,1,['Blondie'],['classic rock'],1978,126
-204,(Don't Fear) The Reaper,1,['Blue Oyster Cult'],['classic rock'],1976,161
-205,Bucks Boogie,1,['Blue Oyster Cult'],['classic rock'],,195
-206,Burnin' for You,1,['Blue Oyster Cult'],['classic rock'],1981,136
-207,Godzilla,1,['Blue Oyster Cult'],['classic rock'],1977,86
-208,I Love the Night,1,['Blue Oyster Cult'],['classic rock'],1977,146
-209,Summertime Blues,1,['Blue Oyster Cult'],['classic rock'],,149
-210,Song 2,1,['Blur'],['classic rock'],1997,29
-211,Just Like A Woman,1,['Bob Dylan'],['classic rock'],1966,153
-212,Knockin' On Heaven's Door,1,['Bob Dylan'],['classic rock'],1973,196
-213,Like a Rolling Stone,1,['Bob Dylan'],['classic rock'],1965,127
-214,Positively 4th Street,1,['Bob Dylan'],['classic rock'],1965,175
-215,Subterranean Homesick Blues,1,['Bob Dylan'],['classic rock'],1965,167
-216,Tangled Up In Blue,1,['Bob Dylan'],['classic rock'],1975,110
-217,Exodus,1,['Bob Marley'],['classic rock'],,116
-218,Jamming,1,['Bob Marley'],['classic rock'],,121
-219,"No Woman, No Cry",1,['Bob Marley'],['classic rock'],1975,0
-220,One Love,1,['Bob Marley'],['classic rock'],1977,158
-221,Stir It Up,1,['Bob Marley'],['classic rock'],,0
-222,Three Little Birds,1,['Bob Marley'],['classic rock'],,51
-223,Against The Wind,1,['Bob Seger'],['classic rock'],1980,167
-224,Betty Lou's Gettin' Out Tonigh,1,['Bob Seger'],['classic rock'],,105
-225,Come to Poppa,1,['Bob Seger'],['classic rock'],,75
-226,Feel Like a Number,1,['Bob Seger'],['classic rock'],,113
-227,Fire Down Below,1,['Bob Seger'],['classic rock'],1977,117
-228,Get Out of Denver,1,['Bob Seger'],['classic rock'],,112
-229,Her Strut,1,['Bob Seger'],['classic rock'],1980,0
-230,Hollywood Nights,1,['Bob Seger'],['classic rock'],1978,172
-231,Horizontal Bop,1,['Bob Seger'],['classic rock'],,52
-232,Katmandu,1,['Bob Seger'],['classic rock'],1975,127
-233,Mainstreet,1,['Bob Seger'],['classic rock'],1977,199
-234,Night Moves,1,['Bob Seger'],['classic rock'],1976,92
-235,Old Time Rock & Roll,1,['Bob Seger'],['classic rock'],1978,84
-236,Ramblin' Gamblin' Man,1,['Bob Seger'],['classic rock'],1968,147
-237,Rock And Roll Never Forgets,1,['Bob Seger'],['classic rock'],1977,131
-238,Roll Me Away,1,['Bob Seger'],['classic rock'],,128
-239,Still the Same,1,['Bob Seger'],['classic rock'],1978,56
-240,Sunspot Baby,1,['Bob Seger'],['classic rock'],,48
-241,The Fire Down Below,1,['Bob Seger'],['classic rock'],,96
-242,Travelin' Man,1,['Bob Seger'],['classic rock'],,105
-243,Turn On Your Love Light,1,['Bob Seger'],['classic rock'],,119
-244,Turn The Page,1,['Bob Seger'],['classic rock'],1973,0
-245,We've Got Tonite,1,['Bob Seger'],['classic rock'],1978,109
-246,You'll Accompany Me,1,['Bob Seger'],['classic rock'],,65
-247,Hypnotized,1,['Bob Welch'],['classic rock'],,105
-248,Bad Medicine,1,['Bon Jovi'],['classic rock'],1988,76
-249,Blaze of Glory,1,['Bon Jovi'],['classic rock'],1990,191
-250,Born To Be My Baby,1,['Bon Jovi'],['classic rock'],1989,55
-251,Lay Your Hands On Me,1,['Bon Jovi'],['classic rock'],1988,111
-252,Livin' On A Prayer,1,['Bon Jovi'],['classic rock'],1986,126
-253,Raise Your Hands,1,['Bon Jovi'],['classic rock'],,45
-254,Runaway,1,['Bon Jovi'],['classic rock'],1984,122
-255,She Don't Know Me,1,['Bon Jovi'],['classic rock'],,184
-256,Wanted Dead or Alive,1,['Bon Jovi'],['classic rock'],1986,69
-257,You Give Love A Bad Name,1,['Bon Jovi'],['classic rock'],1986,216
-258,Wait For You,1,['Bonham'],['classic rock'],,0
-259,Green Onions,1,"[""Booker T. and the MG's""]",['classic rock'],1962,36
-260,A Man I'll Never Be,1,['Boston'],['classic rock'],,57
-261,Amanda,1,['Boston'],['classic rock'],1986,79
-262,Cool The Engines,1,['Boston'],['classic rock'],,137
-263,Don't Look Back,1,['Boston'],['classic rock'],1978,45
-264,Feelin' Satisfied,1,['Boston'],['classic rock'],,46
-265,Foreplay (Long Time),1,['Boston'],['classic rock'],1976,129
-266,Hitch A Ride,1,['Boston'],['classic rock'],1976,55
-267,Let Me Take You Home Tonight,1,['Boston'],['classic rock'],1976,84
-268,More Than a Feeling,1,['Boston'],['classic rock'],1976,147
-269,Party,1,['Boston'],['classic rock'],,188
-270,Peace of Mind,1,['Boston'],['classic rock'],1976,90
-271,Rock & Roll Band,1,['Boston'],['classic rock'],1976,0
-272,Smokin',1,['Boston'],['classic rock'],1976,219
-273,Something About You,1,['Boston'],['classic rock'],,87
-274,The Journey/It's Easy,1,['Boston'],['classic rock'],,128
-275,Used To Bad News,1,['Boston'],['classic rock'],,99
-276,We're Ready,1,['Boston'],['classic rock'],,80
-277,Lido Shuffle,1,['Boz Scaggs'],['classic rock'],1976,0
-278,Lowdown,1,['Boz Scaggs'],['classic rock'],1976,71
-279,Tarkio Road,1,['Brewer & Shipley'],['classic rock'],,0
-280,The Way It Is,1,['Bruce Hornsby & The Range'],['classic rock'],1986,41
-281,Atlantic City,1,['Bruce Springsteen'],['classic rock'],1982,101
-282,Backstreets,1,['Bruce Springsteen'],['classic rock'],1975,62
-283,Badlands,1,['Bruce Springsteen'],['classic rock'],1978,105
-284,Blinded By the Light,1,['Bruce Springsteen'],['classic rock'],1973,201
-285,Born In the U.S.A.,1,['Bruce Springsteen'],['classic rock'],1984,179
-286,Born To Run,1,['Bruce Springsteen'],['classic rock'],1975,147
-287,Cover Me,1,['Bruce Springsteen'],['classic rock'],1984,77
-288,Dancing In the Dark,1,['Bruce Springsteen'],['classic rock'],1984,51
-289,Glory Days,1,['Bruce Springsteen'],['classic rock'],1984,216
-290,Growin' Up,1,['Bruce Springsteen'],['classic rock'],1973,143
-291,Hungry Heart,1,['Bruce Springsteen'],['classic rock'],1980,131
-292,I'm On Fire,1,['Bruce Springsteen'],['classic rock'],1984,178
-293,It's Hard to Be a Saint in the City,1,['Bruce Springsteen'],['classic rock'],1973,204
-294,Jersey Girl,1,['Bruce Springsteen'],['classic rock'],,16
-295,Jungleland,1,['Bruce Springsteen'],['classic rock'],1975,161
-296,Pink Cadillac,1,['Bruce Springsteen'],['classic rock'],1984,177
-297,Prove It All Night,1,['Bruce Springsteen'],['classic rock'],1978,25
-298,Racing in the Streets,1,['Bruce Springsteen'],['classic rock'],1978,99
-299,Rosalita (Come Out Tonight),1,['Bruce Springsteen'],['classic rock'],1973,131
-300,She's The One,1,['Bruce Springsteen'],['classic rock'],1975,190
-301,Spirit In The Night,1,['Bruce Springsteen'],['classic rock'],1973,121
-302,Tenth Avenue Freeze-Out,1,['Bruce Springsteen'],['classic rock'],1975,119
-303,Thunder Road,1,['Bruce Springsteen'],['classic rock'],1975,52
-304,Cuts Like a Knife,1,['Bryan Adams'],['classic rock'],1983,153
-305,Heaven,1,['Bryan Adams'],['classic rock'],1984,55
-306,Run to You,1,['Bryan Adams'],['classic rock'],1984,91
-307,Somebody,1,['Bryan Adams'],['classic rock'],1984,133
-308,Summer Of '69,1,['Bryan Adams'],['classic rock'],1984,238
-309,Sorry,1,['Buckcherry'],['classic rock'],2007,110
-310,For What It's Worth,1,['Buffalo Springfield'],['classic rock'],1966,82
-311,Mr. Soul,1,['Buffalo Springfield'],['classic rock'],1967,202
-312,Rock & Roll Woman,1,['Buffalo Springfield'],['classic rock'],,89
-313,Comedown,1,['Bush'],['classic rock'],1994,67
-314,Machinehead,1,['Bush'],['classic rock'],1994,107
-315,Far Behind,1,['Candlebox'],['classic rock'],1993,161
-316,Goin' up the Country,1,['Canned Heat'],['classic rock'],1968,98
-317,On the Road Again,1,['Canned Heat'],['classic rock'],1968,184
-318,IT'S TOO LATE,1,['Carole King'],['classic rock'],1971,128
-319,Oh Very Young,1,['Cat Stevens'],['classic rock'],,118
-320,WILD WORLD,1,['Cat Stevens'],['classic rock'],1971,0
-321,In America,1,['Charlie Daniels Band'],['classic rock'],1980,0
-322,Long Haired Country Boy,1,['Charlie Daniels Band'],['classic rock'],1975,62
-323,The Devil Went Down To Georgia,1,['Charlie Daniels Band'],['classic rock'],1979,142
-324,The Legend Of Wooley Swamp,1,['Charlie Daniels Band'],['classic rock'],,102
-325,The South's Gonna Do It Again,1,['Charlie Daniels Band'],['classic rock'],1975,59
-326,Uneasy Rider,1,['Charlie Daniels Band'],['classic rock'],1973,102
-327,Ain't That a Shame,1,['Cheap Trick'],['classic rock'],,0
-328,Dream Police,1,['Cheap Trick'],['classic rock'],,104
-329,I Want You to Want Me,1,['Cheap Trick'],['classic rock'],1977,44
-330,She's Tight,1,['Cheap Trick'],['classic rock'],,100
-331,Surrender,1,['Cheap Trick'],['classic rock'],1978,171
+149,Rock Around the Clock,1,['Bill Haley'],['rock and roll'],1955,165
+150,AIN'T NO SUNSHINE,1,['Bill Withers'],"['soul', 'R&B', 'folk rock']",1971,153
+151,Cradle of Love,1,['Billy Idol'],"['hard rock', 'glam rock', 'punk rock']",1990,84
+152,Dancing With Myself,1,['Billy Idol'],"['hard rock', 'glam rock', 'punk rock']",1980,0
+153,Eyes Without a Face,1,['Billy Idol'],"['hard rock', 'glam rock', 'punk rock']",1984,201
+154,Mony Mony,1,['Billy Idol'],"['hard rock', 'glam rock', 'punk rock']",,139
+155,Rebel Yell,1,['Billy Idol'],"['hard rock', 'glam rock', 'punk rock']",1984,36
+156,White Wedding,1,['Billy Idol'],"['hard rock', 'glam rock', 'punk rock']",1982,33
+157,Allentown,1,['Billy Joel'],"['soft rock', 'pop rock']",1982,134
+158,Big Shot,1,['Billy Joel'],"['soft rock', 'pop rock']",1978,113
+159,Captain Jack,1,['Billy Joel'],"['soft rock', 'pop rock']",1973,97
+160,Don't Ask Me Why,1,['Billy Joel'],"['soft rock', 'pop rock']",,1
+161,Goodnight Saigon,1,['Billy Joel'],"['soft rock', 'pop rock']",1983,0
+162,It's Still Rock And Roll To Me,1,['Billy Joel'],"['soft rock', 'pop rock']",1980,36
+163,Miami 2017 {seen The Lights Go Out On Broadway} (live 1,1,['Billy Joel'],"['soft rock', 'pop rock']",1976,20
+164,Movin' Out (Anthony's Song),1,['Billy Joel'],"['soft rock', 'pop rock']",1977,101
+165,My Life,1,['Billy Joel'],"['soft rock', 'pop rock']",1978,25
+166,New York State Of Mind,1,['Billy Joel'],"['soft rock', 'pop rock']",1976,92
+167,Only The Good Die Young,1,['Billy Joel'],"['soft rock', 'pop rock']",1977,130
+168,Piano Man,1,['Billy Joel'],"['soft rock', 'pop rock']",1973,174
+169,Prelude/angry Young Man,1,['Billy Joel'],"['soft rock', 'pop rock']",,164
+170,Scenes From An Italian Restaurant,1,['Billy Joel'],"['soft rock', 'pop rock']",1977,107
+171,SHE'S ALWAYS A WOMAN,1,['Billy Joel'],"['soft rock', 'pop rock']",1977,192
+172,Sometimes A Fantasy,1,['Billy Joel'],"['soft rock', 'pop rock']",1980,165
+173,The Ballad Of Billy The Kid,1,['Billy Joel'],"['soft rock', 'pop rock']",1973,159
+174,The Stranger,1,['Billy Joel'],"['soft rock', 'pop rock']",1977,42
+175,You May Be Right,1,['Billy Joel'],"['soft rock', 'pop rock']",1980,136
+177,Everybody Wants You,1,['Billy Squier'],"['hard rock', 'pop rock']",,103
+178,In the Dark,1,['Billy Squier'],"['hard rock', 'pop rock']",,139
+179,Lonely Is the Night,1,['Billy Squier'],"['hard rock', 'pop rock']",1981,126
+180,My Kinda Lover,1,['Billy Squier'],"['hard rock', 'pop rock']",,67
+181,Rock Me Tonight,1,['Billy Squier'],"['hard rock', 'pop rock']",1984,138
+182,She's a Runner,1,['Billy Squier'],"['hard rock', 'pop rock']",,77
+183,The Stroke,1,['Billy Squier'],"['hard rock', 'pop rock']",1981,52
+185,Fairies Wear Boots,1,['Black Sabbath'],['heavy metal'],1970,99
+186,Heaven and Hell,1,['Black Sabbath'],['heavy metal'],1980,164
+187,Iron Man,1,['Black Sabbath'],['heavy metal'],1972,52
+188,N.i.b.,1,['Black Sabbath'],['heavy metal'],1970,158
+189,Neon Knights,1,['Black Sabbath'],['heavy metal'],1980,96
+190,Paranoid,1,['Black Sabbath'],['heavy metal'],1970,196
+191,Sweet Leaf,1,['Black Sabbath'],['heavy metal'],1971,182
+192,The Wizard,1,['Black Sabbath'],['heavy metal'],1970,141
+193,War Pigs,1,['Black Sabbath'],['heavy metal'],1970,152
+194,Highway Song,1,['Blackfoot'],"['southern rock', 'blues rock']",,78
+195,"Train, Train",1,['Blackfoot'],"['southern rock', 'blues rock']",1979,107
+196,Can't Find My Way Home,1,['Blind Faith'],['blues rock'],1969,48
+197,Presence of the Lord,1,['Blind Faith'],['blues rock'],1969,241
+198,No Rain,1,['Blind Melon'],['alternative rock'],1992,53
+199,Presence of the Lord,1,['Blind Melon'],['alternative rock'],,83
+200,All the Small Things,1,['Blink-182'],"['alternative rock', 'pop rock']",1999,69
+201,Call Me,1,['Blondie'],['pop rock'],1980,104
+202,Heart of Glass,1,['Blondie'],['pop rock'],1978,81
+203,One Way Or Another,1,['Blondie'],['pop rock'],1978,126
+204,(Don't Fear) The Reaper,1,['Blue Oyster Cult'],"['hard rock', 'heavy metal']",1976,161
+205,Bucks Boogie,1,['Blue Oyster Cult'],"['hard rock', 'heavy metal']",,195
+206,Burnin' for You,1,['Blue Oyster Cult'],"['hard rock', 'heavy metal']",1981,136
+207,Godzilla,1,['Blue Oyster Cult'],"['hard rock', 'heavy metal']",1977,86
+208,I Love the Night,1,['Blue Oyster Cult'],"['hard rock', 'heavy metal']",1977,146
+209,Summertime Blues,1,['Blue Oyster Cult'],"['hard rock', 'heavy metal']",,149
+210,Song 2,1,['Blur'],"['alternative rock', 'punk rock']",1997,29
+211,Just Like A Woman,1,['Bob Dylan'],"['rock', 'pop']",1966,153
+212,Knockin' On Heaven's Door,1,['Bob Dylan'],"['rock', 'pop']",1973,196
+213,Like a Rolling Stone,1,['Bob Dylan'],"['rock', 'pop']",1965,127
+214,Positively 4th Street,1,['Bob Dylan'],"['rock', 'pop']",1965,175
+215,Subterranean Homesick Blues,1,['Bob Dylan'],"['rock', 'pop']",1965,167
+216,Tangled Up In Blue,1,['Bob Dylan'],"['rock', 'pop']",1975,110
+217,Exodus,1,['Bob Marley'],['reggae'],,116
+218,Jamming,1,['Bob Marley'],['reggae'],,121
+219,"No Woman, No Cry",1,['Bob Marley'],['reggae'],1975,0
+220,One Love,1,['Bob Marley'],['reggae'],1977,158
+221,Stir It Up,1,['Bob Marley'],['reggae'],,0
+222,Three Little Birds,1,['Bob Marley'],['reggae'],,51
+223,Against The Wind,1,['Bob Seger'],['rock'],1980,167
+224,Betty Lou's Gettin' Out Tonigh,1,['Bob Seger'],['rock'],,105
+225,Come to Poppa,1,['Bob Seger'],['rock'],,75
+226,Feel Like a Number,1,['Bob Seger'],['rock'],,113
+227,Fire Down Below,1,['Bob Seger'],['rock'],1977,117
+228,Get Out of Denver,1,['Bob Seger'],['rock'],,112
+229,Her Strut,1,['Bob Seger'],['rock'],1980,0
+230,Hollywood Nights,1,['Bob Seger'],['rock'],1978,172
+231,Horizontal Bop,1,['Bob Seger'],['rock'],,52
+232,Katmandu,1,['Bob Seger'],['rock'],1975,127
+233,Mainstreet,1,['Bob Seger'],['rock'],1977,199
+234,Night Moves,1,['Bob Seger'],['rock'],1976,92
+235,Old Time Rock & Roll,1,['Bob Seger'],['rock'],1978,84
+236,Ramblin' Gamblin' Man,1,['Bob Seger'],['rock'],1968,147
+237,Rock And Roll Never Forgets,1,['Bob Seger'],['rock'],1977,131
+238,Roll Me Away,1,['Bob Seger'],['rock'],,128
+239,Still the Same,1,['Bob Seger'],['rock'],1978,56
+240,Sunspot Baby,1,['Bob Seger'],['rock'],,48
+241,The Fire Down Below,1,['Bob Seger'],['rock'],,96
+242,Travelin' Man,1,['Bob Seger'],['rock'],,105
+243,Turn On Your Love Light,1,['Bob Seger'],['rock'],,119
+244,Turn The Page,1,['Bob Seger'],['rock'],1973,0
+245,We've Got Tonite,1,['Bob Seger'],['rock'],1978,109
+246,You'll Accompany Me,1,['Bob Seger'],['rock'],,65
+247,Hypnotized,1,['Bob Welch'],['rock'],,105
+248,Bad Medicine,1,['Bon Jovi'],"['hard rock', 'pop rock']",1988,76
+249,Blaze of Glory,1,['Bon Jovi'],"['hard rock', 'pop rock']",1990,191
+250,Born To Be My Baby,1,['Bon Jovi'],"['hard rock', 'pop rock']",1989,55
+251,Lay Your Hands On Me,1,['Bon Jovi'],"['hard rock', 'pop rock']",1988,111
+252,Livin' On A Prayer,1,['Bon Jovi'],"['hard rock', 'pop rock']",1986,126
+253,Raise Your Hands,1,['Bon Jovi'],"['hard rock', 'pop rock']",,45
+254,Runaway,1,['Bon Jovi'],"['hard rock', 'pop rock']",1984,122
+255,She Don't Know Me,1,['Bon Jovi'],"['hard rock', 'pop rock']",,184
+256,Wanted Dead or Alive,1,['Bon Jovi'],"['hard rock', 'pop rock']",1986,69
+257,You Give Love A Bad Name,1,['Bon Jovi'],"['hard rock', 'pop rock']",1986,216
+258,Wait For You,1,['Bonham'],"['hard rock', 'pop rock']",,0
+260,A Man I'll Never Be,1,['Boston'],['hard rock'],,57
+261,Amanda,1,['Boston'],['hard rock'],1986,79
+262,Cool The Engines,1,['Boston'],['hard rock'],,137
+263,Don't Look Back,1,['Boston'],['hard rock'],1978,45
+264,Feelin' Satisfied,1,['Boston'],['hard rock'],,46
+265,Foreplay (Long Time),1,['Boston'],['hard rock'],1976,129
+266,Hitch A Ride,1,['Boston'],['hard rock'],1976,55
+267,Let Me Take You Home Tonight,1,['Boston'],['hard rock'],1976,84
+268,More Than a Feeling,1,['Boston'],['hard rock'],1976,147
+269,Party,1,['Boston'],['hard rock'],,188
+270,Peace of Mind,1,['Boston'],['hard rock'],1976,90
+271,Rock & Roll Band,1,['Boston'],['hard rock'],1976,0
+272,Smokin',1,['Boston'],['hard rock'],1976,219
+273,Something About You,1,['Boston'],['hard rock'],,87
+274,The Journey/It's Easy,1,['Boston'],['hard rock'],,128
+275,Used To Bad News,1,['Boston'],['hard rock'],,99
+276,We're Ready,1,['Boston'],['hard rock'],,80
+277,Lido Shuffle,1,['Boz Scaggs'],"['soft rock', 'blues rock']",1976,0
+278,Lowdown,1,['Boz Scaggs'],"['soft rock', 'blues rock']",1976,71
+281,Atlantic City,1,['Bruce Springsteen'],['rock'],1982,101
+282,Backstreets,1,['Bruce Springsteen'],['rock'],1975,62
+283,Badlands,1,['Bruce Springsteen'],['rock'],1978,105
+284,Blinded By the Light,1,['Bruce Springsteen'],['rock'],1973,201
+285,Born In the U.S.A.,1,['Bruce Springsteen'],['rock'],1984,179
+286,Born To Run,1,['Bruce Springsteen'],['rock'],1975,147
+287,Cover Me,1,['Bruce Springsteen'],['rock'],1984,77
+288,Dancing In the Dark,1,['Bruce Springsteen'],['rock'],1984,51
+289,Glory Days,1,['Bruce Springsteen'],['rock'],1984,216
+290,Growin' Up,1,['Bruce Springsteen'],['rock'],1973,143
+291,Hungry Heart,1,['Bruce Springsteen'],['rock'],1980,131
+292,I'm On Fire,1,['Bruce Springsteen'],['rock'],1984,178
+293,It's Hard to Be a Saint in the City,1,['Bruce Springsteen'],['rock'],1973,204
+294,Jersey Girl,1,['Bruce Springsteen'],['rock'],,16
+295,Jungleland,1,['Bruce Springsteen'],['rock'],1975,161
+296,Pink Cadillac,1,['Bruce Springsteen'],['rock'],1984,177
+297,Prove It All Night,1,['Bruce Springsteen'],['rock'],1978,25
+298,Racing in the Streets,1,['Bruce Springsteen'],['rock'],1978,99
+299,Rosalita (Come Out Tonight),1,['Bruce Springsteen'],['rock'],1973,131
+300,She's The One,1,['Bruce Springsteen'],['rock'],1975,190
+301,Spirit In The Night,1,['Bruce Springsteen'],['rock'],1973,121
+302,Tenth Avenue Freeze-Out,1,['Bruce Springsteen'],['rock'],1975,119
+303,Thunder Road,1,['Bruce Springsteen'],['rock'],1975,52
+304,Cuts Like a Knife,1,['Bryan Adams'],"['soft rock', 'pop rock']",1983,153
+305,Heaven,1,['Bryan Adams'],"['soft rock', 'pop rock']",1984,55
+306,Run to You,1,['Bryan Adams'],"['soft rock', 'pop rock']",1984,91
+307,Somebody,1,['Bryan Adams'],"['soft rock', 'pop rock']",1984,133
+308,Summer Of '69,1,['Bryan Adams'],"['soft rock', 'pop rock']",1984,238
+309,Sorry,1,['Buckcherry'],"['hard rock', 'heavy metal']",2007,110
+310,For What It's Worth,1,['Buffalo Springfield'],['folk rock'],1966,82
+311,Mr. Soul,1,['Buffalo Springfield'],['folk rock'],1967,202
+312,Rock & Roll Woman,1,['Buffalo Springfield'],['folk rock'],,89
+313,Comedown,1,['Bush'],"['alternative rock', 'hard rock']",1994,67
+314,Machinehead,1,['Bush'],"['alternative rock', 'hard rock']",1994,107
+321,In America,1,['Charlie Daniels Band'],['southern rock'],1980,0
+322,Long Haired Country Boy,1,['Charlie Daniels Band'],['southern rock'],1975,62
+323,The Devil Went Down To Georgia,1,['Charlie Daniels Band'],['southern rock'],1979,142
+324,The Legend Of Wooley Swamp,1,['Charlie Daniels Band'],['southern rock'],,102
+325,The South's Gonna Do It Again,1,['Charlie Daniels Band'],['southern rock'],1975,59
+326,Uneasy Rider,1,['Charlie Daniels Band'],['southern rock'],1973,102
+327,Ain't That a Shame,1,['Cheap Trick'],"['hard rock', 'pop rock'] ",,0
+328,Dream Police,1,['Cheap Trick'],"['hard rock', 'pop rock'] ",,104
+329,I Want You to Want Me,1,['Cheap Trick'],"['hard rock', 'pop rock'] ",1977,44
+330,She's Tight,1,['Cheap Trick'],"['hard rock', 'pop rock'] ",,100
+331,Surrender,1,['Cheap Trick'],"['hard rock', 'pop rock'] ",1978,171
 332,Take Out The Gunman,1,['Chevelle'],['classic rock'],2014,49
-333,25 Or 6 To 4,1,['Chicago'],['classic rock'],1970,89
-334,Beginnings,1,['Chicago'],['classic rock'],,0
-335,Feeling Stronger Every,1,['Chicago'],['classic rock'],1973,23
-336,I'm a Man,1,['Chicago'],['classic rock'],,226
-337,JUST YOU AND ME,1,['Chicago'],['classic rock'],,176
-338,Make Me Smile,1,['Chicago'],['classic rock'],1970,154
-339,Questions 67 and 68,1,['Chicago'],['classic rock'],1969,0
-340,Saturday In the Park,1,['Chicago'],['classic rock'],1972,90
-341,South California Purples,1,['Chicago'],['classic rock'],,98
+333,25 Or 6 To 4,1,['Chicago'],"['soft rock', 'pop rock']",1970,89
+334,Beginnings,1,['Chicago'],"['soft rock', 'pop rock']",,0
+335,Feeling Stronger Every,1,['Chicago'],"['soft rock', 'pop rock']",1973,23
+336,I'm a Man,1,['Chicago'],"['soft rock', 'pop rock']",,226
+337,JUST YOU AND ME,1,['Chicago'],"['soft rock', 'pop rock']",,176
+338,Make Me Smile,1,['Chicago'],"['soft rock', 'pop rock']",1970,154
+339,Questions 67 and 68,1,['Chicago'],"['soft rock', 'pop rock']",1969,0
+340,Saturday In the Park,1,['Chicago'],"['soft rock', 'pop rock']",1972,90
+341,South California Purples,1,['Chicago'],"['soft rock', 'pop rock']",,98
 342,JOHNNY B. GOODE,1,['Chuck Berry'],['classic rock'],1958,151
-343,Coming Home,1,['Cinderella'],['classic rock'],1988,162
-344,Don't Know What You Got,1,['Cinderella'],['classic rock'],1988,30
-345,Gypsy Road,1,['Cinderella'],['classic rock'],1988,128
-346,Nobody's Fool,1,['Cinderella'],['classic rock'],1986,49
-347,Somebody Save Me,1,['Cinderella'],['classic rock'],1986,85
+343,Coming Home,1,['Cinderella'],"['hard rock', 'glam rock']",1988,162
+344,Don't Know What You Got,1,['Cinderella'],"['hard rock', 'glam rock']",1988,30
+345,Gypsy Road,1,['Cinderella'],"['hard rock', 'glam rock']",1988,128
+346,Nobody's Fool,1,['Cinderella'],"['hard rock', 'glam rock']",1986,49
+347,Somebody Save Me,1,['Cinderella'],"['hard rock', 'glam rock']",1986,85
 348,Better Off Without You,1,['Clarks'],['classic rock'],,236
 349,Born Too Late,1,['Clarks'],['classic rock'],,21
 350,Cigarette,1,['Clarks'],['classic rock'],,163

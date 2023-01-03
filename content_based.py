@@ -1,33 +1,36 @@
 import Data
 from Songs_Modeling import Song
 from Users_Modeling import User
+import Agents as agent
+import Agents_actions as act
 import similarity_measures as sim
 import util
 import pickle
 import random as rnd
 import time
-import pandas as pd
 import numpy as np
+import pandas as pd
 from nltk.corpus import stopwords
 import nltk
 import os
 import random
 import re
 
-stopwords_list = set(stopwords.words('english'))
-path_music_data= os.path.join('data', 'music database_count.csv')
-dataframe = Data.read_songs_info('music_database_with_lists.csv')
-usersframe = Data.read_users_songs_info('ratings.csv')
-""" Repositories:
-        Represented Items
-        Feedback: reaction to items
-"""
+# stopwords_list = set(stopwords.words('english'))
+# path_music_data= os.path.join('data', 'music database_count.csv')
+# dataframe = Data.read_songs_info('music_database_with_lists.csv')
+# usersframe = Data.read_users_songs_info('ratings.csv')
 
-class ContentBasedRecommender:
-    def __init__(self):
-        self.content_simil = Content_analyzer()
-        self.profiling = Profile_learner()
+class Recommender:
+    def __init__(self,songsFrame:pd.DataFrame,userFrame:pd.DataFrame):
+        pass
+
+class ContentBasedRecommender(Recommender):
+    def __init__(self,songsFrame:pd.DataFrame,userFrame:pd.DataFrame):
+        self.content_simil = Content_analyzer(songsFrame)
+        self.profiling = Profile_learner(userFrame,self.content_simil.songs_list)
         self.filter = Filtering_component()
+        self.user_conv = {}
         # self.content_simil.extract_info()
         # self.tf_idf = sim._tf_x_idf(self.content_simil.title_list)
     
@@ -39,7 +42,14 @@ class ContentBasedRecommender:
     #         print(f"Number {i+1}:")
     #         print(f"{recom_song[i][0]} with {round(recom_song[i][1], 3)} similarity score") 
     #         print("--------------------")
-    
+    def new_user(self,agent:agent.Agent):
+        user_id = agent.id
+        id = self.user_conv.get(user_id)
+        if not id:
+            self.user_conv[id] = self.profiling.next_id
+            self.profiling.next_id += 1
+        return self.profiling.new_user(agent,self.user_conv[id])
+
     def _print_message(self, user:User, recom_song):
         rec_items = len(recom_song)
         
@@ -50,24 +60,32 @@ class ContentBasedRecommender:
             print("--------------------")
     
     def recommend(self,user:User):
+        # user = self.profiling.users_dict[self.user_conv[agent.id]]
         s_sim_list = Filtering_component.recomend_to_user(user,self.content_simil.freq_matrix)
+        recommendation = s_sim_list.copy()
         for i in range(len(s_sim_list)):
-            s_sim_list[i] = (self.content_simil.songs_list[s_sim_list[i][0]],s_sim_list[i][1])
-        self._print_message(user,s_sim_list)
+            recommendation[i] = self.content_simil.songs_list[s_sim_list[i][0]]
+        # self._print_message(user,s_sim_list)
+        ratings = agent.received_recommendation(recommendation)
+        for i in range(len(s_sim_list)):
+            self.profiling.new_rate(user, recommendation[i], ratings[i])
+        self.profiling.revector(user)
+
 
     def recommend_by_song(self, song:Song, to_recommend=10):
         recom = song.top_similar_songs(self.content_simil.songs_list, to_recommend, self.content_simil.freq_matrix)
         self._print_message(song, recom)
     
-
 class Content_analyzer():
     """ Extract structured relevant information
         The main responsibility of the component is to represent the content of items  """
-    def __init__(self):
+    def __init__(self,songsFrame:pd.DataFrame):
+        self.songsFrame = songsFrame
         self.extract_info()
         self.freq_matrix = util.vectorize_songs(self.songs_list)
+    
     def extract_info(self):
-        self.songs_list = Song.from_Dataframe(dataframe)
+        self.songs_list = Song.from_Dataframe(self.songsFrame)
         file = open('content-based system/songs_list.bin','wb')
         pickle.dump(self.songs_list,file)
         file.close
@@ -76,39 +94,63 @@ class Content_analyzer():
 class Profile_learner():
     """ Collects data representative of the user preferences and tries to generalize this data, 
         in order to construct the user profile.  """
-    def __init__(self,song_list=None):
+    def __init__(self,userFrame:pd.DataFrame,song_list=None):
+        self.usersframe = userFrame
+        self.song_l = song_list
         self.profile_users()
         self.vector_by_user(song_list)
 
     def profile_users(self):
-        self.users_rates = User.rate_from_Dataframe(usersframe)
+        self.users_rates = User.rate_from_Dataframe(self.usersframe)
         # try:
         #     uf = open('content-based system/user_list.bin','rb')
-        #     self.users_list = pickle.load(uf)
+        #     self.users_dict = pickle.load(uf)
         #     uf.close()
         # except:
-        self.users_list = User.users_from_Dataframe(self.users_rates)
+        self.users_dict = User.users_from_Dataframe(self.users_rates)
             # pass
+        self.next_id = max(list(self.users_rates.keys())) + 1
         file = open('content-based system/user_list.bin','wb')
-        pickle.dump(self.users_list, file)
+        pickle.dump(self.users_dict, file)
         file.close()
+    
     def vector_by_user(self,song_list):
-        for user in self.users_list:
-            user:User
-            user.vectorize_user(song_list)
-        
-        self.vectors_by_user = [ u.vector for u in self.users_list]
+        self.vectors_by_user = []
+        for user_id in self.users_dict:
+            user:User = self.users_dict[user_id]
+            user.vectorize_user(song_list)        
+            self.vectors_by_user.append(user.vector)
+        return self.vectors_by_user
 
-    def artists_to_recommend(self, user_id:int, top:int):
-        user:User = self.users_list[user_id - 1]
+    """  def artists_to_recommend(self, user_id:int, top:int):
+        user:User = self.users_dict[user_id]
         ret = user.top_prefered_artists(dataframe,top)
         return ret
     def genres_to_recommend(self, user_id:int, top:int):
-        user:User = self.users_list[user_id - 1]
+        user:User = self.users_dict[user_id]
         ret = user.top_prefered_genres(dataframe,top)
-        return ret
-    def new_user(self):
-        pass
+        return ret """
+    def revector(self,user:User):
+        user.vectorize_user(self.song_l)
+        self.vectors_by_user.append(user.vector)
+
+    def new_user(self,agent:agent.Agent,user_id):
+        user = User(user_id)
+        regist:act.Action = agent.register_in_system()
+        if regist is act.RegisterAction:
+            regist.register_explicit(user)
+        user.vectorize_user(self.song_l)
+        self.users_dict[user.id] = user
+        self.vectors_by_user.append(user.vector)
+        return user
+
+    def new_rate(self,user:User,song:Song,rating:int):
+        rated = self.users_rates[user.id]
+        if not rated:
+            self.users_rates[user.id] = [(song.id,rating)]
+        else:
+            self.users_rates[user.id].append( (song.id,rating) )
+        user.add_rate(song.id,rating)
 
 class Filtering_component():
     """ 
@@ -152,8 +194,8 @@ class Filtering_component():
         user_song_sim = dict(sorted(user_song_sim.items(), key=lambda item: item[1], reverse=True))
         return user_song_sim
 
-cb = ContentBasedRecommender()
-u = cb.profiling.users_list[7]
+# cb = ContentBasedRecommender()
+# u = cb.profiling.users_dict[8]
 # cb.recommend(u)
 # print(cb.profiling.artists_to_recommend(3,5))
 # print(cb.profiling.genres_to_recommend(3,5))

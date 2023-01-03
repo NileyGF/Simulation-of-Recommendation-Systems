@@ -171,7 +171,7 @@ def random_rate(number_users, number_songs, number_songs_to_rate):
             while (song_id in rated_songs) or (song_id > number_songs):
                 song_id = rnd.randint(1,number_songs + 1)
             rated_songs.append(song_id)
-            ratings.append([i+1, song_id, rate/2])    
+            ratings.append([i+1, song_id, rate*0.5])    
     return ratings
 
 rate_fields = ['user_id', 'song_id', 'rating']

@@ -3,11 +3,6 @@ import pandas as pd
 from enum import Enum
 import util
 
-class Gender(Enum):
-    Femenine = 1
-    Masculine = 2
-class Location:
-    pass
 class Listening_behavior(Enum):
     Indiferents = 1     #  7% # They would not lose much sleep if music ceased to exist, they are a predominant type of listeners of the whole population.
     Casuals = 2         # 21% # Music plays a welcome role, but other things are far more important
@@ -76,14 +71,14 @@ class User:
         self.vector = vector
         return vector
 
-    def set_static_info(self, age:int, gender:Gender, location:Location, listening_behavior:Listening_behavior):
-        if age > 10 and age < 120:
-            self.age = age
-        self.gender = gender
-        self.location = location
-        self.listening_behavior = listening_behavior
-        self.songs_to_recommend = ns_lb[listening_behavior]
-        pass
+    # def set_static_info(self, age:int, gender:Gender, location:Location, listening_behavior:Listening_behavior):
+    #     if age > 10 and age < 120:
+    #         self.age = age
+    #     self.gender = gender
+    #     self.location = location
+    #     self.listening_behavior = listening_behavior
+    #     self.songs_to_recommend = ns_lb[listening_behavior]
+    #     pass
 
     def rate_from_Dataframe(DataFrame:pd.DataFrame):
         unique_users = DataFrame['user_id'].unique()
@@ -94,12 +89,12 @@ class User:
         return ret
 
     def users_from_Dataframe(rate_dict:dict):
-        ret = []
+        ret = {}
         for user_id in rate_dict:
             user = User(user_id)
             for rating in rate_dict[user_id]:
                 user.add_rate(rating[0], rating[1])
-            ret.append( user )
+            ret[user_id] = user
         return ret
     
     def top_prefered_artists(self, DataFrame:pd.DataFrame, top):
@@ -160,12 +155,12 @@ class User:
     def _implicit_prefered_artist(self, DataFrame:pd.DataFrame):
         self.impl_artists = self.implicit_category_profile(DataFrame,'artists')    
     def _explicit_prefered_artist(self, artists_list:list):
-        self.expl_artists = {art:8 for art in artists_list}
+        self.expl_artists = {art:4.5 for art in artists_list}
     
     def _implicit_prefered_genres(self, DataFrame:pd.DataFrame):
         self.impl_genres = self.implicit_category_profile(DataFrame,'genres')    
     def _explicit_prefered_genres(self, genres_list:list):
-        self.expl_genres = {gen:8 for gen in genres_list}
+        self.expl_genres = {gen:4.5 for gen in genres_list}
     
     def implicit_category_profile(self, songsFrame:pd.DataFrame, category:str):
         number_songs = songsFrame.shape[0]

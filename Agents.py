@@ -2,7 +2,7 @@ import random as rnd
 import pandas as pd
 import time
 from enum import Enum
-Aimport similarity_measures as sim
+import similarity_measures as sim
 import Agents_actions as act
 
 class Listening_behavior(Enum):
@@ -16,10 +16,9 @@ class Behavior_Distribution:
         # if rate_dist is None:
         #     rate_dist = {'yes': 0.4, 'no': 0.6 }
         if interact_dist is None:
-            interact_dist = {'empty'    : 0.30,
-                            'search'    : 0.20,
-                            'post'      : 0.15,
-                            'read'      : 0.15}
+            interact_dist = {'empty'    : 0.45,
+                            'post'      : 0.30,
+                            'read'      : 0.25}
         if change_internal_dist is None:
             change_internal_dist = {'yes': 0.3, 'no': 0.7}
         if explicit_dist is None:
@@ -104,6 +103,10 @@ class Agent():
     def do_action(self) -> act.Action:
         raise NotImplementedError()
 
+    def change_inter(self,songs,rates:list):
+        raise NotImplementedError()
+
+
 class UniformAgent(Agent):
     """ Uniformily Random Preference User """
     def __init__(self, id: int,listenin_behavior = Listening_behavior.Casuals):
@@ -121,20 +124,33 @@ class UniformAgent(Agent):
             sim = self.preference[song.id]
         return sim
     
+    def received_recommendation(self, recommendation: list) -> act.Action:
+        rate_recommendation = super().received_recommendation(recommendation)
+        rates = [r[0] for r in rate_recommendation]
+        return rates
+
+    def change_inter(self, songs, rates: list):
+        pass
+
     def do_action(self) -> act.Action:
         interact_dist:dict = self.behavior_dist['interact_dist']
-        # 'empty', 'search', 'post', 'read'
+        # 'empty', 'post', 'read'
         action = rnd.choices(list(interact_dist.keys()),list(interact_dist.values()))
         if action == 'empty':
             return act.EmptyAction()
-        else: raise NotImplementedError()
+        elif action == 'post':
+            s_index = rnd.randint(0, len(self.preference)-1)
+            s_id = list(self.preference.keys()) [s_index]
+            return act.PostAction(self,s_id)
+        elif action == 'read':
+            return act.ReadAction(self)
 
 class LooselyPreferenceAgent(Agent):
     """ Loosely Preference User """
     def __init__(self, id: int, preference_songs:list, listenin_behavior = Listening_behavior.Casuals):
         self.id = id
         self.listenin_behavior = listenin_behavior
-        self.behavior_dist = Behavior_Distribution(interact_dist={'empty':0.30,'search':0.35,'post':0.10,'read':0.25}, change_internal_dist={'yes':0.8,'no':0.2})
+        self.behavior_dist = Behavior_Distribution(interact_dist={'empty':0.50,'post':0.15,'read':0.35}, change_internal_dist={'yes':0.8,'no':0.2})
         self.preference = {'songs': [], 'artists': [], 'genres': [] }
         for song in preference_songs:
             self.preference['songs'].append(song.id)
@@ -152,28 +168,42 @@ class LooselyPreferenceAgent(Agent):
  
     def received_recommendation(self, recommendation: list) -> act.Action:
         rate_recommendation = super().received_recommendation(recommendation)
+        rates = [r[0] for r in rate_recommendation]
+        self.change_inter(recommendation,rates)
+        return rates
+    
+    def change_inter(self,songs,rates:list):
         change_internal:dict = self.behavior_dist['change_internal_dist']
         # 'yes', 'no'
         add_to_preference = rnd.choices(list(change_internal.keys()),list(change_internal.values()))
         if add_to_preference == 'yes':
-            for i in range(len(rate_recommendation)):
-                rate=rate_recommendation[i]
-                if rate[0] > 2.5:
-                    self.preference['songs'].append(recommendation[i].id)
-                    self.preference['artists'].append(art for art in recommendation[i].artists)
-                    self.preference['genres'].append(gen for gen in recommendation[i].genres)
+            for i in range(len(rates)):
+                if rates[i] >= 2.5:
+                    self.preference['songs'].append(songs[i].id)
+                    self.preference['artists'].append(art for art in songs[i].artists)
+                    self.preference['genres'].append(gen for gen in songs[i].genres)
             # remove repeated ones
             self.preference['artists'] = list(set(self.preference['artists']))
             self.preference['genres'] = list(set(self.preference['genres']))
-
-        return rate_recommendation
     
+    def do_action(self) -> act.Action:
+        interact_dist:dict = self.behavior_dist['interact_dist']
+        # 'empty', 'post', 'read'
+        action = rnd.choices(list(interact_dist.keys()),list(interact_dist.values()))
+        if action == 'empty':
+            return act.EmptyAction()
+        elif action == 'post':
+            s_id = rnd.choice(self.preference['songs'])
+            return act.PostAction(self,s_id)
+        elif action == 'read':
+            return act.ReadAction(self)
+
 class StronglyPreferenceAgent(Agent):
     """ Strongly Preference User """
     def __init__(self, id: int, preference_songs:list, listenin_behavior = Listening_behavior.Casuals):
         self.id = id
         self.listenin_behavior = listenin_behavior
-        self.behavior_dist = Behavior_Distribution(interact_dist={'empty':0.20,'search':0.30,'post':0.30,'read':0.20}, change_internal_dist={'yes':0.3,'no':0.7})
+        self.behavior_dist = Behavior_Distribution(interact_dist={'empty':0.40,'post':0.40,'read':0.20}, change_internal_dist={'yes':0.3,'no':0.7})
         self.preference = {'songs': [], 'artists': [], 'genres': [] }
         for song in preference_songs:
             self.preference['songs'].append(song.id)
@@ -191,23 +221,37 @@ class StronglyPreferenceAgent(Agent):
  
     def received_recommendation(self, recommendation: list) -> act.Action:
         rate_recommendation = super().received_recommendation(recommendation)
+        rates = [r[0] for r in rate_recommendation]
+        self.change_inter(recommendation,rates)
+        return rates
+    
+    def change_inter(self,songs,rates:list):
         change_internal:dict = self.behavior_dist['change_internal_dist']
         # 'yes', 'no'
         add_to_preference = rnd.choices(list(change_internal.keys()),list(change_internal.values()))
         if add_to_preference == 'yes':
-            for i in range(len(rate_recommendation)):
-                rate=rate_recommendation[i]
-                if rate[0] >= 4.3:
-                    self.preference['songs'].append(recommendation[i].id)
-                    self.preference['artists'].append(art for art in recommendation[i].artists)
-                    self.preference['genres'].append(gen for gen in recommendation[i].genres)
+            for i in range(len(rates)):
+                if rates[i] >= 4.3:
+                    self.preference['songs'].append(songs[i].id)
+                    self.preference['artists'].append(art for art in songs[i].artists)
+                    self.preference['genres'].append(gen for gen in songs[i].genres)
             # remove repeated ones
             self.preference['artists'] = list(set(self.preference['artists']))
             self.preference['genres'] = list(set(self.preference['genres']))
 
-        return rate_recommendation
-    
-print(Listening_behavior.value(1))
+    def do_action(self) -> act.Action:
+        interact_dist:dict = self.behavior_dist['interact_dist']
+        # 'empty', 'post', 'read'
+        action = rnd.choices(list(interact_dist.keys()),list(interact_dist.values()))
+        if action == 'empty':
+            return act.EmptyAction()
+        elif action == 'post':
+            s_id = rnd.choice(self.preference['songs'])
+            return act.PostAction(self,s_id)
+        elif action == 'read':
+            return act.ReadAction(self)
+
+# print(Listening_behavior(1))
  
 
 
