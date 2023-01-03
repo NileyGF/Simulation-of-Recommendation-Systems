@@ -46,9 +46,9 @@ class ContentBasedRecommender(Recommender):
         user_id = agent.id
         id = self.user_conv.get(user_id)
         if not id:
-            self.user_conv[id] = self.profiling.next_id
+            self.user_conv[user_id] = self.profiling.next_id
             self.profiling.next_id += 1
-        return self.profiling.new_user(agent,self.user_conv[id])
+        return self.profiling.new_user(agent,self.user_conv[user_id])
 
     def _print_message(self, user:User, recom_song):
         rec_items = len(recom_song)
@@ -59,14 +59,14 @@ class ContentBasedRecommender(Recommender):
             print(f"{recom_song[i][0]} with {round(recom_song[i][1], 3)} similarity score") 
             print("--------------------")
     
-    def recommend(self,user:User):
-        # user = self.profiling.users_dict[self.user_conv[agent.id]]
+    def recommend(self,ag:agent.Agent):
+        user = self.profiling.users_dict[self.user_conv[ag.id]]
         s_sim_list = Filtering_component.recomend_to_user(user,self.content_simil.freq_matrix)
         recommendation = s_sim_list.copy()
         for i in range(len(s_sim_list)):
             recommendation[i] = self.content_simil.songs_list[s_sim_list[i][0]]
         # self._print_message(user,s_sim_list)
-        ratings = agent.received_recommendation(recommendation)
+        ratings = ag.received_recommendation(recommendation)
         for i in range(len(s_sim_list)):
             self.profiling.new_rate(user, recommendation[i], ratings[i])
         self.profiling.revector(user)
@@ -145,7 +145,7 @@ class Profile_learner():
         return user
 
     def new_rate(self,user:User,song:Song,rating:int):
-        rated = self.users_rates[user.id]
+        rated = self.users_rates.get(user.id)
         if not rated:
             self.users_rates[user.id] = [(song.id,rating)]
         else:
@@ -170,7 +170,8 @@ class Filtering_component():
         c = to_recom*3
         while i < to_recom:
             choice = rnd.randint(0,c-1)
-            if not reduced_similarity.get(choice):
+            s = reduced_similarity.get(choice)
+            if s is None:
                 continue
             s = list(reduced_similarity.keys())[choice]
             result.append((s, reduced_similarity[choice]))

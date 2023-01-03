@@ -51,7 +51,7 @@ class Agent():
     def register_in_system(self) -> act.Action:
         expl_dist:dict = self.behavior_dist['explicit_dist']
         # 'none', 'artists', 'genres', 'artist_genres'
-        action_str = rnd.choices(list(expl_dist.keys()),list(expl_dist.values()))
+        action_str = rnd.choices(list(expl_dist.keys()),list(expl_dist.values()))[0]
 
         if action_str == 'none':
             return act.EmptyAction()
@@ -80,7 +80,7 @@ class Agent():
         for p in range(len(songs_population)):
             # initial solution
             rate = rnd.uniform(bounds[0], bounds[1])
-            eval = min_funct(rate)
+            eval = min_funct(songs_population[p],rate)
             rate_population.append([rate,eval])
 
         for it in range(iterations):
@@ -97,6 +97,19 @@ class Agent():
                     r[1] = candidate_eval
                 # report progress
                 print('> %s - iter: %d f(%s) = %.5f' % (str(s),it, r[0], r[1])) 
+        
+        for p in range(len(rate_population)):
+            r = rate_population[p][0]
+            if r < 1: r = 0
+            elif r > 1 and r < 1.5: r = 1.5
+            elif r > 1.5 and r < 2: r = 2
+            elif r > 2 and r < 2.5: r = 2.5
+            elif r > 2.5 and r < 3: r = 3
+            elif r > 3 and r < 3.5: r = 3.5
+            elif r > 3.5 and r < 4: r = 4
+            elif r > 4 and r < 4.5: r = 4.5
+            elif r > 4.5 and r < 5: r = 6
+            rate_population[p][0] = r
 
         return rate_population
 
@@ -114,7 +127,10 @@ class UniformAgent(Agent):
         self.listenin_behavior = Listening_behavior.Casuals
         self.behavior_dist = Behavior_Distribution()
         self.preference = {}
-     
+   
+    def register_in_system(self) -> act.Action:
+        return act.EmptyAction()
+
     def similarity_to_preference(self, song): 
         """ utility function """
         sim = self.preference.get(song.id)
@@ -135,7 +151,7 @@ class UniformAgent(Agent):
     def do_action(self) -> act.Action:
         interact_dist:dict = self.behavior_dist['interact_dist']
         # 'empty', 'post', 'read'
-        action = rnd.choices(list(interact_dist.keys()),list(interact_dist.values()))
+        action = rnd.choices(list(interact_dist.keys()),list(interact_dist.values()))[0]
         if action == 'empty':
             return act.EmptyAction()
         elif action == 'post':
@@ -175,7 +191,7 @@ class LooselyPreferenceAgent(Agent):
     def change_inter(self,songs,rates:list):
         change_internal:dict = self.behavior_dist['change_internal_dist']
         # 'yes', 'no'
-        add_to_preference = rnd.choices(list(change_internal.keys()),list(change_internal.values()))
+        add_to_preference = rnd.choices(list(change_internal.keys()),list(change_internal.values()))[0]
         if add_to_preference == 'yes':
             for i in range(len(rates)):
                 if rates[i] >= 2.5:
@@ -189,7 +205,7 @@ class LooselyPreferenceAgent(Agent):
     def do_action(self) -> act.Action:
         interact_dist:dict = self.behavior_dist['interact_dist']
         # 'empty', 'post', 'read'
-        action = rnd.choices(list(interact_dist.keys()),list(interact_dist.values()))
+        action = rnd.choices(list(interact_dist.keys()),list(interact_dist.values()))[0]
         if action == 'empty':
             return act.EmptyAction()
         elif action == 'post':
@@ -228,7 +244,7 @@ class StronglyPreferenceAgent(Agent):
     def change_inter(self,songs,rates:list):
         change_internal:dict = self.behavior_dist['change_internal_dist']
         # 'yes', 'no'
-        add_to_preference = rnd.choices(list(change_internal.keys()),list(change_internal.values()))
+        add_to_preference = rnd.choices(list(change_internal.keys()),list(change_internal.values()))[0]
         if add_to_preference == 'yes':
             for i in range(len(rates)):
                 if rates[i] >= 4.3:
@@ -242,7 +258,7 @@ class StronglyPreferenceAgent(Agent):
     def do_action(self) -> act.Action:
         interact_dist:dict = self.behavior_dist['interact_dist']
         # 'empty', 'post', 'read'
-        action = rnd.choices(list(interact_dist.keys()),list(interact_dist.values()))
+        action = rnd.choices(list(interact_dist.keys()),list(interact_dist.values()))[0]
         if action == 'empty':
             return act.EmptyAction()
         elif action == 'post':

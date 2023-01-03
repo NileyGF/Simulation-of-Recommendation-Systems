@@ -147,40 +147,40 @@ def get_list(string:str, len_res):
 def to_1D(series):
     return pd.Series([x for _list in series for x in _list])
 
-"""  rnd.seed(time.time())
-songs = read_songs_info('music_database_with_lists.csv')
-listen_count = np.ndarray(dtype=int,shape=songs.shape[0])
-for i in range(listen_count.shape[0]):
-    r1 = rnd.gauss(100,60)
-    if r1 < 0:
-        r1 = 0
-    listen_count[i] = int(r1)
+# rnd.seed(time.time())
+# songs = read_songs_info('music_database_with_lists.csv')
+# listen_count = np.ndarray(dtype=int,shape=songs.shape[0])
+# for i in range(listen_count.shape[0]):
+#     r1 = rnd.gauss(100,60)
+#     if r1 < 0:
+#         r1 = 0
+#     listen_count[i] = int(r1)
 
-songs['listen_count'] = listen_count
-songs.to_csv('data/music_database_with_lists.csv',index=False)
+# songs['listen_count'] = listen_count
+# songs.to_csv('data/music_database_with_lists.csv',index=False)
 
-def random_rate(number_users, number_songs, number_songs_to_rate):
-    ratings = []
-    for i in range(number_users):
-        songs_to_rate = int(rnd.randint(0,number_songs_to_rate-1))
-        rated_songs = [] # to avoid the situation where a user rate the same song more than once
-        for j in range(number_songs_to_rate - songs_to_rate):
-            rate = rnd.randint(0,10)
-            if rate <= 1: rate = 0
-            song_id = int(rnd.uniform(1,number_songs + 1))
-            while (song_id in rated_songs) or (song_id > number_songs):
-                song_id = rnd.randint(1,number_songs + 1)
-            rated_songs.append(song_id)
-            ratings.append([i+1, song_id, rate*0.5])    
-    return ratings
+# def random_rate(number_users, number_songs, number_songs_to_rate):
+#     ratings = []
+#     for i in range(number_users):
+#         songs_to_rate = int(rnd.randint(0,number_songs_to_rate-1))
+#         rated_songs = [] # to avoid the situation where a user rate the same song more than once
+#         for j in range(number_songs_to_rate - songs_to_rate):
+#             rate = rnd.randint(0,10)
+#             if rate <= 1: rate = 0
+#             song_id = int(rnd.uniform(1,number_songs + 1))
+#             while (song_id in rated_songs) or (song_id > number_songs):
+#                 song_id = rnd.randint(1,number_songs + 1)
+#             rated_songs.append(song_id)
+#             ratings.append([i+1, song_id, rate*0.5])    
+#     return ratings
 
-rate_fields = ['user_id', 'song_id', 'rating']
-rate_list = random_rate(40, 2426, 25) 
-ratings_f = open('data/ratings.csv', 'w+')
-writecsv = csv.writer(ratings_f)
-writecsv.writerow(rate_fields)
-writecsv.writerows(rate_list)
-ratings_f.close() """
+# rate_fields = ['user_id', 'song_id', 'rating']
+# rate_list = random_rate(40, 2414, 25) 
+# ratings_f = open('data/ratings.csv', 'w+')
+# writecsv = csv.writer(ratings_f)
+# writecsv.writerow(rate_fields)
+# writecsv.writerows(rate_list)
+# ratings_f.close()
 
 # Ten top popular artists
 """ ten_pop_artists = songs.groupby(['artist_name'])['listen_count'].count().reset_index().sort_values(

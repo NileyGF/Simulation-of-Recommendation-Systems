@@ -49,23 +49,25 @@ class User:
             artists = util.Util.sorted_vocab[1]
             genres = util.Util.sorted_vocab[2]
 
+        id_ind = util.ger_Id_Ind_dict(song_list)
+
         # vector = [0]*(len(titles_vocabulary) + len(artists) + len(genres))
         vector = np.ndarray(shape=(len(titles_vocabulary) + len(artists) + len(genres)), dtype=float)
         for i in range(len(titles_vocabulary)):
             freq_i = 0
             for s_id in self.rates:
-                freq_i += terms_by_title[s_id - 1].count(titles_vocabulary[i])
+                freq_i += terms_by_title[id_ind[s_id]].count(titles_vocabulary[i])
             vector[i] = freq_i
         ind = len(titles_vocabulary)
 
         for s_id in self.rates:
-            for art in artists_by_song[s_id - 1]:
+            for art in artists_by_song[id_ind[s_id]]:
                 i = artists.index(art)
                 vector[ind+i] +=1
         ind = len(titles_vocabulary) + len(artists)
 
         for s_id in self.rates:
-            for gen in genres_by_song[s_id - 1]:
+            for gen in genres_by_song[id_ind[s_id]]:
                 i = genres.index(gen)
                 vector[ind+i] +=1
         self.vector = vector
@@ -85,7 +87,7 @@ class User:
         ret = {id:[] for id in unique_users}
         for index, row in DataFrame.iterrows():
             id = row['user_id']
-            ret[id].append( (row['song_id'],row['rating']) )
+            ret[id].append( (int(row['song_id']),row['rating']) )
         return ret
 
     def users_from_Dataframe(rate_dict:dict):

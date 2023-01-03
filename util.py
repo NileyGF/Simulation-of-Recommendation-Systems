@@ -1,5 +1,11 @@
 import string
 import numpy as np
+
+def ger_Id_Ind_dict(song_list):
+    id_ind = {}
+    for i in range(len(song_list)):
+        id_ind[song_list[i].id] = i
+    return id_ind
 class Util:
     info_by_song = None  # [terms_by_title, artists_by_song, genres_by_song]
     sorted_vocab = None  # [title_vocabulary, unique_artists, unique_genres]

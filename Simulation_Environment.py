@@ -33,17 +33,17 @@ class Profile_Generator:
         rnd.seed(time.time())
         for i in range(num_users):
             user_id = i+1
-            preference_str = rnd.choices(['random','loose','strong'],cum_weights=pref_dist)
-            list_beh= rnd.choices([1,2,3,4],weights=list_dist)
+            preference_str = rnd.choices(['random','loose','strong'],cum_weights=pref_dist)[0]
+            list_beh= rnd.choices([1,2,3,4],weights=list_dist) [0]
             listening_behavior = agent.Listening_behavior(list_beh)
-            num_songs = self.avg_songs + rnd.randint(-4,5) #[7,10,15,20] [list_beh-1]
+            num_songs = int(self.avg_songs + rnd.randint(-4,5)) #[7,10,15,20] [list_beh-1]
             if preference_str == 'random':
                 sim_users.append(agent.UniformAgent(user_id,listening_behavior))
             elif preference_str == 'loose':
-                preference = rnd.sample(self.__songs, num_songs)
+                preference = rnd.choices(self._song_list, k=num_songs)
                 sim_users.append(agent.LooselyPreferenceAgent(user_id,preference,listening_behavior))
             elif preference_str == 'strong':
-                preference = rnd.sample(self.__songs, num_songs)
+                preference = rnd.choices(self._song_list, k=num_songs)
                 sim_users.append(agent.LooselyPreferenceAgent(user_id,preference,listening_behavior))
         return sim_users
 
@@ -167,7 +167,7 @@ class Enviroment:
 
 class Music_store():
     def __init__(self, recommender:content_based.ContentBasedRecommender, close_time = 300):
-        rnd.seed(30)
+        rnd.seed(time.time())
         self.num_arrivals = 0           # ammount of arrivals until self.time
         self.num_departures = 0         # ammount of departures until self.time
         self.num_post = 0
@@ -175,8 +175,8 @@ class Music_store():
         self.users_in_store = 0         # ammount of users in the store
         self.time = 0                   # elapsed time  
         self.close_time = close_time    # no more arrivals are allowed
-        t0 = rnd.expovariate(1)
-        self.next_arrival = t0
+        t0 = rnd.expovariate(0.2)
+        self.next_arrival = int(t0 + 1)
         self.next_departure = float('inf')
         self.next_interact = float('inf')
         self.events = {'arrive':[],'departure':[],'empty':[],'post':[],'read':[]}      
@@ -191,22 +191,22 @@ class Music_store():
         #     return 
         # update store status
         now = self.next_arrival
-        lapse = rnd.expovariate(1) + 1
+        lapse = rnd.expovariate(0.5) + 1
         self.next_arrival = int(now + lapse)
         self.num_arrivals +=1
         self.users_in_store += 1
         if self.users_in_store == 1:
-            lapse1 = rnd.expovariate(1) + 1
+            lapse1 = rnd.expovariate(0.5) + 1
             self.next_departure = int(now + lapse)
-            lapse2 = rnd.expovariate(1)
+            lapse2 = rnd.expovariate(0.5)
             while lapse2 >= lapse1:
-                lapse2 = rnd.expovariate(1) + 1
+                lapse2 = rnd.expovariate(0.5) + 1
             self.next_interact = int(now + lapse)
         self.events['arrive'].append((user.id, now))
 
         # efectuate the arrival and recommendation
         recom_user = self.recommender.new_user(user)
-        self.recommender.recommend(recom_user)
+        self.recommender.recommend(user)
     
     def user_departure(self,user:agent.Agent):
         # rnd.seed(time.time())
@@ -220,7 +220,7 @@ class Music_store():
             self.next_departure = float('inf')
             self.next_interact = float('inf')
         else: 
-            lapse = rnd.expovariate(1) + 1
+            lapse = rnd.expovariate(0.5) + 1
             self.next_departure = self.time + lapse
         self.events['departure'].append((user.id, self.time))
         
@@ -230,14 +230,14 @@ class Music_store():
         #     return 
         # update store status
         now = self.next_interact
-        lapse = rnd.expovariate(3) + 1
+        lapse = rnd.expovariate(0.3) + 1
         self.next_interact = int(now + lapse)
         self.events['empty'].append((user.id, now))
 
     def user_post(self,user:agent.Agent,action:act.PostAction):
         # update store status
         now = self.next_interact
-        lapse = rnd.expovariate(3) + 1
+        lapse = rnd.expovariate(0.3) + 1
         self.next_interact = int(now + lapse)
         self.num_post += 1
 
@@ -248,7 +248,7 @@ class Music_store():
     def user_read(self,user:agent.Agent,action:act.ReadAction):
         # update store status
         now = self.next_interact
-        lapse = rnd.expovariate(3) + 1
+        lapse = rnd.expovariate(0.3) + 1
         self.next_interact = int(now + lapse)
         self.num_read += 1
 
