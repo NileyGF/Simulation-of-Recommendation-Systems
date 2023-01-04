@@ -1,4 +1,3 @@
-import Data
 from Songs_Modeling import Song
 from Users_Modeling import User
 import Agents as agent
@@ -11,10 +10,6 @@ import time
 import numpy as np
 import pandas as pd
 from nltk.corpus import stopwords
-import nltk
-import os
-import random
-import re
 
 # stopwords_list = set(stopwords.words('english'))
 # path_music_data= os.path.join('data', 'music database_count.csv')

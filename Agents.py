@@ -144,10 +144,10 @@ class UniformAgent(Agent):
     def received_recommendation(self, recommendation: list) -> act.Action:
         rate_recommendation = super().received_recommendation(recommendation)
         rates = [r[0] for r in rate_recommendation]
-        return rates
+        return rates, []
 
     def change_inter(self, songs, rates: list):
-        pass
+        return []
 
     def do_action(self) -> act.Action:
         interact_dist:dict = self.behavior_dist['interact_dist']

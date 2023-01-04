@@ -36,9 +36,9 @@ class ReadAction(InteractAction):
     def read(self, posts:list):
         rates = []
         n = min(rnd.randint(1,5),len(posts))
-        songs = rnd.choices(posts, k = n)
-        for i in range(n):
+        songs = list(set(rnd.choices(posts, k = n)))
+        for i in range(len(songs)):
             r = rnd.randint(2,10) * 0.5
             rates.append(r)
-        self.agent.change_inter(songs,rates)
+        return self.agent.change_inter(songs,rates)
     
