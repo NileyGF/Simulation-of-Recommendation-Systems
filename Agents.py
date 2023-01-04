@@ -75,7 +75,7 @@ class Agent():
         # pobl_size = len(sol_range)
         # initialization:
         rnd.seed(time.time())
-        bounds = [0,5]
+        bounds = [1,5]
         rate_population = []
         for p in range(len(songs_population)):
             # initial solution
@@ -90,13 +90,14 @@ class Agent():
                 r = rate_population[i]
                 s = songs_population[i]
                 candidate_rate = r[0] + rnd.uniform(-1,1)
+                candidate_rate = max(0,candidate_rate)
                 candidate_eval = min_funct(s,candidate_rate)
                 if candidate_eval <= r[1]:
                     #improved solution
                     r[0] = candidate_rate
                     r[1] = candidate_eval
                 # report progress
-                print('> %s - iter: %d f(%s) = %.5f' % (str(s),it, r[0], r[1])) 
+                # print('> %s - iter: %d f(%s) = %.5f' % (str(s),it, r[0], r[1])) 
         
         for p in range(len(rate_population)):
             r = rate_population[p][0]
@@ -185,23 +186,26 @@ class LooselyPreferenceAgent(Agent):
     def received_recommendation(self, recommendation: list) -> act.Action:
         rate_recommendation = super().received_recommendation(recommendation)
         rates = [r[0] for r in rate_recommendation]
-        self.change_inter(recommendation,rates)
-        return rates
+        changed = self.change_inter(recommendation,rates)
+        return rates, changed
     
     def change_inter(self,songs,rates:list):
         change_internal:dict = self.behavior_dist['change_internal_dist']
         # 'yes', 'no'
         add_to_preference = rnd.choices(list(change_internal.keys()),list(change_internal.values()))[0]
+        changed = []
         if add_to_preference == 'yes':
             for i in range(len(rates)):
                 if rates[i] >= 2.5:
                     self.preference['songs'].append(songs[i].id)
                     self.preference['artists'].append(art for art in songs[i].artists)
                     self.preference['genres'].append(gen for gen in songs[i].genres)
+                    changed.append(songs[i])
             # remove repeated ones
             self.preference['artists'] = list(set(self.preference['artists']))
             self.preference['genres'] = list(set(self.preference['genres']))
-    
+        return changed
+
     def do_action(self) -> act.Action:
         interact_dist:dict = self.behavior_dist['interact_dist']
         # 'empty', 'post', 'read'
@@ -238,22 +242,25 @@ class StronglyPreferenceAgent(Agent):
     def received_recommendation(self, recommendation: list) -> act.Action:
         rate_recommendation = super().received_recommendation(recommendation)
         rates = [r[0] for r in rate_recommendation]
-        self.change_inter(recommendation,rates)
-        return rates
+        changed = self.change_inter(recommendation,rates)
+        return rates, changed
     
     def change_inter(self,songs,rates:list):
         change_internal:dict = self.behavior_dist['change_internal_dist']
         # 'yes', 'no'
         add_to_preference = rnd.choices(list(change_internal.keys()),list(change_internal.values()))[0]
+        changed = []
         if add_to_preference == 'yes':
             for i in range(len(rates)):
                 if rates[i] >= 4.3:
                     self.preference['songs'].append(songs[i].id)
                     self.preference['artists'].append(art for art in songs[i].artists)
                     self.preference['genres'].append(gen for gen in songs[i].genres)
+                    changed.append(songs[i])
             # remove repeated ones
             self.preference['artists'] = list(set(self.preference['artists']))
             self.preference['genres'] = list(set(self.preference['genres']))
+        return changed
 
     def do_action(self) -> act.Action:
         interact_dist:dict = self.behavior_dist['interact_dist']

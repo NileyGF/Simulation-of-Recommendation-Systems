@@ -29,7 +29,7 @@ class ContentBasedRecommender(Recommender):
     def __init__(self,songsFrame:pd.DataFrame,userFrame:pd.DataFrame):
         self.content_simil = Content_analyzer(songsFrame)
         self.profiling = Profile_learner(userFrame,self.content_simil.songs_list)
-        self.filter = Filtering_component()
+        self.filter = Filtering_component(self.content_simil.songs_list)
         self.user_conv = {}
         # self.content_simil.extract_info()
         # self.tf_idf = sim._tf_x_idf(self.content_simil.title_list)
@@ -61,16 +61,16 @@ class ContentBasedRecommender(Recommender):
     
     def recommend(self,ag:agent.Agent):
         user = self.profiling.users_dict[self.user_conv[ag.id]]
-        s_sim_list = Filtering_component.recomend_to_user(user,self.content_simil.freq_matrix)
-        recommendation = s_sim_list.copy()
-        for i in range(len(s_sim_list)):
-            recommendation[i] = self.content_simil.songs_list[s_sim_list[i][0]]
+        recommendation = self.filter.recomend_to_user(user,self.content_simil.freq_matrix)
+        # recommendation = s_sim_list.copy()
+        # for i in range(len(recommendation)):
+        #     recommendation[i] = recommendation[i][1]
         # self._print_message(user,s_sim_list)
-        ratings = ag.received_recommendation(recommendation)
-        for i in range(len(s_sim_list)):
+        ratings, changed = ag.received_recommendation(recommendation)
+        for i in range(len(recommendation)):
             self.profiling.new_rate(user, recommendation[i], ratings[i])
         self.profiling.revector(user)
-
+        return changed
 
     def recommend_by_song(self, song:Song, to_recommend=10):
         recom = song.top_similar_songs(self.content_simil.songs_list, to_recommend, self.content_simil.freq_matrix)
@@ -157,14 +157,24 @@ class Filtering_component():
         Exploits the user profile to suggest relevant items by matching the profile representation against that of items to be recommended
         The result is a continuous relevance judgment, resulting in a ranked list of potentially interesting items.
     """
+    def __init__(self,songs_list:list):
+        self.top_popular_songs(songs_list)
 
-    def recomend_to_user(user:User, songs_freq_matrix:np.ndarray):
-        songs_similarity = Filtering_component.relevant_songs(user,songs_freq_matrix)
-        reduced_similarity = Filtering_component.remove_rated_songs(user,songs_similarity)
+    def recomend_to_user(self, user:User, songs_freq_matrix:np.ndarray):
+        songs_similarity = self.relevant_songs(user,songs_freq_matrix)
+        reduced_similarity = self.remove_rated_songs(user,songs_similarity)
+        reduced_similarity = self.remove_zero_songs(reduced_similarity)
         to_recom = user.songs_to_recommend
-        # reduced_similarity = list(reduced_similarity.values())[:to_recom*3]
-        result = []
+        
+        # if there are not enough similars songs, add the most populars ones
+        if len(reduced_similarity) < to_recom:
+            i = len(reduced_similarity)
+            for song in self.top_pop_songs:
+                reduced_similarity[i] = song
+                i+=1       
+            to_recom = min(to_recom,len(reduced_similarity)) 
 
+        result = []
         rnd.seed(time.time())
         i = 0
         c = to_recom*3
@@ -173,20 +183,27 @@ class Filtering_component():
             s = reduced_similarity.get(choice)
             if s is None:
                 continue
-            s = list(reduced_similarity.keys())[choice]
-            result.append((s, reduced_similarity[choice]))
-
+            result.append(reduced_similarity[choice])
             reduced_similarity.pop(choice)
             i+=1
             c-=1
         return result
 
-    def remove_rated_songs(user:User, songs_similarity:dict):
+    def remove_rated_songs(self, user:User, songs_similarity:dict):
         for s_id in user.rates:
             songs_similarity.pop(s_id-1)
         return songs_similarity
 
-    def relevant_songs(user:User, songs_freq_matrix:np.ndarray):
+    def remove_zero_songs(self, songs_similarity:dict):
+        result = {}
+        i = 0 
+        for s in songs_similarity:
+            if songs_similarity[s] > 0:
+                result[i] = songs_similarity[s]
+                i+=1
+        return result
+
+    def relevant_songs(self, user:User, songs_freq_matrix:np.ndarray):
         simil = sim.Similarity()
         user_song_sim = {s:0 for s in range(songs_freq_matrix.shape[1])}
         for s in range(songs_freq_matrix.shape[1]):
@@ -194,6 +211,14 @@ class Filtering_component():
             user_song_sim[s] = simil.cosine_similarity(songs_freq_matrix[:,s],user.vector)
         user_song_sim = dict(sorted(user_song_sim.items(), key=lambda item: item[1], reverse=True))
         return user_song_sim
+        
+    def top_popular_songs(self, songs_list:list, top:int=20):
+        sorted_by_listened = sorted(songs_list, key=lambda item: item.listen_count, reverse=True)
+        
+        while top < len(sorted_by_listened)-1 and sorted_by_listened[top].listen_count == sorted_by_listened[top+1].listen_count:
+            top += 1
+        self.top_pop_songs = sorted_by_listened[:top]
+        
 
 # cb = ContentBasedRecommender()
 # u = cb.profiling.users_dict[8]

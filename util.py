@@ -1,7 +1,7 @@
 import string
 import numpy as np
 
-def ger_Id_Ind_dict(song_list):
+def get_Id_Ind_dict(song_list):
     id_ind = {}
     for i in range(len(song_list)):
         id_ind[song_list[i].id] = i

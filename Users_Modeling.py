@@ -49,10 +49,16 @@ class User:
             artists = util.Util.sorted_vocab[1]
             genres = util.Util.sorted_vocab[2]
 
-        id_ind = util.ger_Id_Ind_dict(song_list)
+        id_ind = util.get_Id_Ind_dict(song_list)
 
         # vector = [0]*(len(titles_vocabulary) + len(artists) + len(genres))
-        vector = np.ndarray(shape=(len(titles_vocabulary) + len(artists) + len(genres)), dtype=float)
+        
+        # vector = np.ndarray(shape=(len(titles_vocabulary) + len(artists) + len(genres)), dtype=float)
+        vector = np.zeros(shape=(len(titles_vocabulary) + len(artists) + len(genres)), dtype=float)
+        if len(self.rates) == 0:
+            self.vector = vector
+            return vector
+
         for i in range(len(titles_vocabulary)):
             freq_i = 0
             for s_id in self.rates:

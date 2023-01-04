@@ -21,7 +21,7 @@ class Profile_Generator:
         self._song_list =[]
         for index, row in songsFrame.iterrows():
             self.__songs[row['song_id']] = {'title':row['title'], 'artists':row['artists'], 'genres':row['genres'], 'listen_count':row['listen_count']}
-            self._song_list.append(Song(row['song_id'],row['title'],row['artists'], row['genres']))
+            self._song_list.append(Song(row['song_id'],row['title'],row['artists'], row['genres'], row['listen_count']))
         return self.__songs
 
     def average_listened_songs(self,userFrame:pd.DataFrame):
@@ -175,12 +175,14 @@ class Music_store():
         self.users_in_store = 0         # ammount of users in the store
         self.time = 0                   # elapsed time  
         self.close_time = close_time    # no more arrivals are allowed
-        t0 = rnd.expovariate(0.2)
+        t0 = rnd.gauss(5,0.5)
+        if t0 < 0: t0 = 3
         self.next_arrival = int(t0 + 1)
         self.next_departure = float('inf')
         self.next_interact = float('inf')
         self.events = {'arrive':[],'departure':[],'empty':[],'post':[],'read':[]}      
         self.posts = []
+        self.agents_changes = {} # agent.id : [songs added]
         self.recommender = recommender
             
     def user_arrival(self,user:agent.Agent):
@@ -191,22 +193,30 @@ class Music_store():
         #     return 
         # update store status
         now = self.next_arrival
-        lapse = rnd.expovariate(0.5) + 1
+        lapse = rnd.gauss(5,0.5)
+        if lapse < 0: lapse = 3
         self.next_arrival = int(now + lapse)
         self.num_arrivals +=1
         self.users_in_store += 1
         if self.users_in_store == 1:
-            lapse1 = rnd.expovariate(0.5) + 1
-            self.next_departure = int(now + lapse)
-            lapse2 = rnd.expovariate(0.5)
+            lapse1 = rnd.gauss(30,5)
+            if lapse1 < 0: lapse1 = 15
+            self.next_departure = int(now + lapse1)
+            lapse2 = rnd.gauss(10,2)
+            if lapse2 < 0: lapse2 = 7
             while lapse2 >= lapse1:
-                lapse2 = rnd.expovariate(0.5) + 1
-            self.next_interact = int(now + lapse)
+                lapse2 = rnd.gauss(10,2)
+                if lapse2 < 0: lapse2 = 7
+            self.next_interact = int(now + lapse2)
         self.events['arrive'].append((user.id, now))
 
         # efectuate the arrival and recommendation
         recom_user = self.recommender.new_user(user)
-        self.recommender.recommend(user)
+        changes = self.recommender.recommend(user)
+        l = self.agents_changes.get(user.id)
+        if l is None:
+            self.agents_changes[user.id] = changes
+        else: self.agents_changes[user.id].append(s for s in changes)
     
     def user_departure(self,user:agent.Agent):
         # rnd.seed(time.time())
@@ -220,8 +230,9 @@ class Music_store():
             self.next_departure = float('inf')
             self.next_interact = float('inf')
         else: 
-            lapse = rnd.expovariate(0.5) + 1
-            self.next_departure = self.time + lapse
+            lapse = rnd.gauss(5,0.5)
+            if lapse < 0: lapse = 3
+            self.next_departure = int(self.time + lapse)
         self.events['departure'].append((user.id, self.time))
         
     def empty_interaction(self,user:agent.Agent,action:act.EmptyAction):
@@ -230,14 +241,16 @@ class Music_store():
         #     return 
         # update store status
         now = self.next_interact
-        lapse = rnd.expovariate(0.3) + 1
+        lapse = rnd.gauss(10,2)
+        if lapse < 0: lapse = 7
         self.next_interact = int(now + lapse)
         self.events['empty'].append((user.id, now))
 
     def user_post(self,user:agent.Agent,action:act.PostAction):
         # update store status
         now = self.next_interact
-        lapse = rnd.expovariate(0.3) + 1
+        lapse = rnd.gauss(10,2)
+        if lapse < 0: lapse = 7
         self.next_interact = int(now + lapse)
         self.num_post += 1
 
@@ -248,7 +261,8 @@ class Music_store():
     def user_read(self,user:agent.Agent,action:act.ReadAction):
         # update store status
         now = self.next_interact
-        lapse = rnd.expovariate(0.3) + 1
+        lapse = rnd.gauss(10,2)
+        if lapse < 0: lapse = 7
         self.next_interact = int(now + lapse)
         self.num_read += 1
 
@@ -267,6 +281,7 @@ class Model:
         self.agents_list = self.prof_gen.generate(num_users)
         self.store.close_time = duration
         self.run()
+        self.print_end_state()
     
     def run(self):  
         running = True
@@ -275,7 +290,7 @@ class Model:
             if self.store.time == self.store.next_arrival:
                 # new arrival
                 new_us_ind = rnd.randint(0, len(self.agents_list)-1)
-                while self.agents_list[new_us_ind] in agents_in_store:
+                while self.agents_list[new_us_ind]in agents_in_store:
                     new_us_ind = rnd.randint(0, len(self.agents_list)-1)
                 user:agent.Agent = self.agents_list[new_us_ind]
                 agents_in_store.append(user)
@@ -285,12 +300,13 @@ class Model:
                 user:agent.Agent = agents_in_store[inter_us_ind]
                 # 'empty', 'post', 'read'       
                 action = user.do_action()
-                if action is act.EmptyAction:
+                if type(action) is act.EmptyAction:
                     self.store.empty_interaction(user,action)
-                elif action is act.PostAction:
+                elif type(action) is act.PostAction:
                     self.store.user_post(user,action)
-                elif action is act.ReadAction:
-                    self.store.user_read(user,action)
+                elif type(action) is act.ReadAction:
+                    if len(self.store.posts) > 0:
+                        self.store.user_read(user,action)
             if self.store.time == self.store.next_departure:
                 # a user leaves the store
                 leave_us_ind = rnd.randint(0, len(agents_in_store)-1)
@@ -299,6 +315,16 @@ class Model:
                 self.store.user_departure(user)
             self.store.time += 1
             running = (self.store.time <= self.store.close_time)
+
+    def print_end_state(self):
+        print('Number of Arrivals: ', self.store.num_arrivals)
+        print()
+        print('Number of Departure: ', self.store.num_departures)
+        print()
+        print('Number of Interactions: ', self.store.num_post+self.store.num_read)
+        print('\tPosts: ', self.store.num_post)
+        print('\tReadings: ', self.store.num_read)
+        
 
 model = Model('content_based')
 model.simulate()

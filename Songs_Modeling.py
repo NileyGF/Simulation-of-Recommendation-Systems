@@ -4,11 +4,12 @@ import similarity_measures as sim
 import util
 
 class Song:
-    def __init__(self, id:int, title:str, artists:list, genres:list):
+    def __init__(self, id:int, title:str, artists:list, genres:list, listen_count:int):
         self.id = id
         self.title = title
         self.artists = artists
         self.genres = genres
+        self.listen_count = listen_count
 
     def __str__(self) -> str:
         string = self.title + ' - '
@@ -22,7 +23,7 @@ class Song:
     def from_Dataframe(DataFrame:pd.DataFrame):
         ret = []
         for index, row in DataFrame.iterrows():
-            ret.append(Song(row['song_id'],row['title'], row['artists'], row['genres']))
+            ret.append(Song(row['song_id'],row['title'], row['artists'], row['genres'], row['listen_count']))
         return ret
     
     def song_similarity_heuristic(self,other, freq_matrix):
