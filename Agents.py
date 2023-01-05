@@ -144,10 +144,20 @@ class UniformAgent(Agent):
     def received_recommendation(self, recommendation: list) -> act.Action:
         rate_recommendation = super().received_recommendation(recommendation)
         rates = [r[0] for r in rate_recommendation]
-        return rates, []
+        changed = self.change_inter(recommendation,rates)
+        return rates, changed
 
     def change_inter(self, songs, rates: list):
-        return []
+        change_internal:dict = self.behavior_dist['change_internal_dist']
+        # 'yes', 'no'
+        add_to_preference = rnd.choices(list(change_internal.keys()),list(change_internal.values()))[0]
+        changed = []
+        if add_to_preference == 'yes':
+            for i in range(len(rates)):
+                if rnd.choice([True,False]):
+                    self.preference[songs[i].id] = rnd.uniform(0,1)
+                    changed.append(songs[i])
+        return changed
 
     def do_action(self) -> act.Action:
         interact_dist:dict = self.behavior_dist['interact_dist']
@@ -171,8 +181,10 @@ class LooselyPreferenceAgent(Agent):
         self.preference = {'songs': [], 'artists': [], 'genres': [] }
         for song in preference_songs:
             self.preference['songs'].append(song.id)
-            self.preference['artists'].append(art for art in song.artists)
-            self.preference['genres'].append(gen for gen in song.genres)
+            for art in song.artists:
+                self.preference['artists'].append(art)
+            for gen in song.genres:
+                self.preference['genres'].append(gen)
         # remove repeated ones
         self.preference['artists'] = list(set(self.preference['artists']))
         self.preference['genres'] = list(set(self.preference['genres']))
@@ -198,8 +210,10 @@ class LooselyPreferenceAgent(Agent):
             for i in range(len(rates)):
                 if rates[i] >= 2.5:
                     self.preference['songs'].append(songs[i].id)
-                    self.preference['artists'].append(art for art in songs[i].artists)
-                    self.preference['genres'].append(gen for gen in songs[i].genres)
+                    for art in songs[i].artists:
+                        self.preference['artists'].append(art)
+                    for gen in songs[i].genres:
+                        self.preference['genres'].append(gen)
                     changed.append(songs[i])
             # remove repeated ones
             self.preference['artists'] = list(set(self.preference['artists']))
@@ -227,8 +241,10 @@ class StronglyPreferenceAgent(Agent):
         self.preference = {'songs': [], 'artists': [], 'genres': [] }
         for song in preference_songs:
             self.preference['songs'].append(song.id)
-            self.preference['artists'].append(art for art in song.artists)
-            self.preference['genres'].append(gen for gen in song.genres)
+            for art in song.artists:
+                self.preference['artists'].append(art)
+            for gen in song.genres:
+                self.preference['genres'].append(gen)
         # remove repeated ones
         self.preference['artists'] = list(set(self.preference['artists']))
         self.preference['genres'] = list(set(self.preference['genres']))
@@ -252,10 +268,12 @@ class StronglyPreferenceAgent(Agent):
         changed = []
         if add_to_preference == 'yes':
             for i in range(len(rates)):
-                if rates[i] >= 4.3:
+                if rates[i] >= 4.0:
                     self.preference['songs'].append(songs[i].id)
-                    self.preference['artists'].append(art for art in songs[i].artists)
-                    self.preference['genres'].append(gen for gen in songs[i].genres)
+                    for art in songs[i].artists:
+                        self.preference['artists'].append(art)
+                    for gen in songs[i].genres:
+                        self.preference['genres'].append(gen)
                     changed.append(songs[i])
             # remove repeated ones
             self.preference['artists'] = list(set(self.preference['artists']))

@@ -35,7 +35,7 @@ class ReadAction(InteractAction):
         self.agent = agent
     def read(self, posts:list):
         rates = []
-        n = min(rnd.randint(1,5),len(posts))
+        n = min(rnd.randint(1,3),len(posts))
         songs = list(set(rnd.choices(posts, k = n)))
         for i in range(len(songs)):
             r = rnd.randint(2,10) * 0.5

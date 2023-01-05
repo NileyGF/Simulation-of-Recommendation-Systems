@@ -1,9 +1,8 @@
 import pandas as pd
 import numpy as np
 import random as rnd
-import statistics as sta
-from heapq import heappush, heappop
-from itertools import count
+import matplotlib.pyplot as plt
+# import statistics as sta
 import time
 import Agents as agent
 import Agents_actions as act
@@ -28,15 +27,15 @@ class Profile_Generator:
         song_user = userFrame.groupby('user_id')['song_id'].count()
         self.avg_songs = np.mean(song_user.values)
     
-    def generate(self,num_users=99,pref_dist=[0.33,0.67,1],list_dist=[0.40,0.32,0.21,0.07]):
+    def generate(self,num_users=99,pref_dist=[0.34,0.33,0.33],list_dist=[0.40,0.32,0.21,0.07]):
         sim_users = []
         rnd.seed(time.time())
         for i in range(num_users):
             user_id = i+1
-            preference_str = rnd.choices(['random','loose','strong'],cum_weights=pref_dist)[0]
+            preference_str = rnd.choices(['random','loose','strong'],weights=pref_dist)[0]
             list_beh= rnd.choices([1,2,3,4],weights=list_dist) [0]
             listening_behavior = agent.Listening_behavior(list_beh)
-            num_songs = int(self.avg_songs + rnd.randint(-4,5)) #[7,10,15,20] [list_beh-1]
+            num_songs = int(self.avg_songs + rnd.randint(-4,5))
             if preference_str == 'random':
                 sim_users.append(agent.UniformAgent(user_id,listening_behavior))
             elif preference_str == 'loose':
@@ -44,7 +43,7 @@ class Profile_Generator:
                 sim_users.append(agent.LooselyPreferenceAgent(user_id,preference,listening_behavior))
             elif preference_str == 'strong':
                 preference = rnd.choices(self._song_list, k=num_songs)
-                sim_users.append(agent.LooselyPreferenceAgent(user_id,preference,listening_behavior))
+                sim_users.append(agent.StronglyPreferenceAgent(user_id,preference,listening_behavior))
         return sim_users
       
 class Music_store():
@@ -167,11 +166,16 @@ class Model:
         self.store = Music_store(self.recommender)
         self.prof_gen = Profile_Generator(dataframe,usersframe)
     
-    def simulate(self, duration:int=300, num_users:int=99):
+    def simulate(self,repeat:int=30, duration:int=1440, num_users:int=100):
         self.agents_list = self.prof_gen.generate(num_users)
         self.store.close_time = duration
-        self.run()
-        self.print_end_state()
+        self.changes_for_iter = {'uniform':[0]*repeat, 'loosely':[0]*repeat, 'strongly':[0]*repeat}
+        self.type_agents_for_iter = {'uniform':[0]*repeat, 'loosely':[0]*repeat, 'strongly':[0]*repeat}
+        for i in range(repeat):
+            self.run()
+            self.process_iteration(i,self.store.agents_changes)
+            self.store = Music_store(self.recommender)
+        self.end_state(repeat)
     
     def run(self):  
         running = True
@@ -206,21 +210,76 @@ class Model:
             self.store.time += 1
             running = (self.store.time <= self.store.close_time)
 
-    def print_end_state(self):
-        print('Number of Arrivals: ', self.store.num_arrivals)
-        print()
-        print('Number of Departure: ', self.store.num_departures)
-        print()
-        print('Number of Interactions: ', self.store.num_post+self.store.num_read)
-        print('\tPosts: ', self.store.num_post)
-        print('\tReadings: ', self.store.num_read)
-        print()
-        print('Agents\' changes due to the system:')
-        for id in self.store.agents_changes:
-            if len(self.store.agents_changes[id]) > 0:
-                for s in self.store.agents_changes[id]:
-                    print('\tAgent: ', id, 'added song: ',s)
+    def end_state(self,iterations):
+        # print('Number of Arrivals: ', self.store.num_arrivals)
+        # print()
+        # print('Number of Departure: ', self.store.num_departures)
+        # print()
+        # print('Number of Interactions: ', self.store.num_post+self.store.num_read)
+        # print('\tPosts: ', self.store.num_post)
+        # print('\tReadings: ', self.store.num_read)
+        # print()
+        # print('Agents\' changes due to the system:')
+        # for id in self.store.agents_changes:
+        #     if len(self.store.agents_changes[id]) > 0:
+        #         for s in self.store.agents_changes[id]:
+        #             print('\tAgent: ', id, 'added song: ',s)
+        uniform = self.changes_for_iter['uniform']
+        loosely = self.changes_for_iter['loosely']
+        strongly = self.changes_for_iter['strongly']
+        t = np.linspace(0,iterations,iterations)
+        plt.figure(1)
+        plt.scatter(t,uniform)#, 'r', label='uniform random user')
+        plt.scatter(t,loosely)#, 'b', label='loosely preference user')
+        plt.scatter(t,strongly)#, 'g', label='strongly preference user')
+        plt.legend(['uniform random user', 'loosely preference user', 'strongly preference user'])
+        plt.xlabel('Simulation runs')
+        plt.ylabel('Amount of changes')
+        plt.title('Amount of changes in user\'s preferences per run')
+        plt.savefig('content-based results.png')
+        # plt.show()
+        uniform_norm = []
+        loosely_norm = []
+        strongly_norm = []
+        for i in range(iterations):
+            uniform_norm[i] = uniform[i] / self.type_agents_for_iter['uniform'][i]
+            loosely_norm[i] = loosely[i] / self.type_agents_for_iter['loosely'][i]
+            strongly_norm[i] = strongly[i] / self.type_agents_for_iter['strongly'][i]
+        plt.figure(2)
+        plt.scatter(t,uniform_norm)
+        plt.scatter(t,loosely_norm)
+        plt.scatter(t,strongly_norm)
+        plt.legend(['uniform random user', 'loosely preference user', 'strongly preference user'])
+        plt.xlabel('Simulation runs')
+        plt.ylabel('Normalized amount of changes')
+        plt.title('Normalized amount of changes in user\'s preferences per run')
+        plt.savefig('content-based results normalized.png')
         
+        print('Mean of uniform random users changes: ',np.mean(uniform))
+        print('Median of uniform random users changes: ',np.median(uniform))
+        print('Mean of loosely preference users changes: ',np.mean(loosely))
+        print('Median of loosely preference users changes: ',np.median(loosely))
+        print('Mean of strongly preference users changes: ',np.mean(strongly))
+        print('Median of strongly preference users changes: ',np.median(strongly))
+        
+    def process_iteration(self,iter:int,changes_list):
+        for id in changes_list:
+            ag_index = id -1
+            ag:agent.Agent = self.agents_list[ag_index]
+            if type(ag) is agent.UniformAgent:
+                self.changes_for_iter['uniform'][iter] += len(changes_list[id])
+                self.type_agents_for_iter['uniform'][iter] +=1
+            elif type(ag) is agent.LooselyPreferenceAgent:
+                self.changes_for_iter['loosely'][iter] += len(changes_list[id])
+                self.type_agents_for_iter['loosely'][iter] +=1
+            elif type(ag) is agent.StronglyPreferenceAgent:
+                self.changes_for_iter['strongly'][iter] += len(changes_list[id])
+                self.type_agents_for_iter['strongly'][iter] +=1
+            else:
+                pass
 
+start = time.time()
 model = Model('content_based')
-model.simulate(duration=2400)
+model.simulate(repeat=50,duration=1440)
+end = time.time()
+print('running time', round(end - start,4))
