@@ -170,7 +170,7 @@ class Model:
         self.agents_list = self.prof_gen.generate(num_users)
         self.store.close_time = duration
         self.changes_for_iter = {'uniform':[0]*repeat, 'loosely':[0]*repeat, 'strongly':[0]*repeat}
-        self.type_agents_for_iter = {'uniform':[0]*repeat, 'loosely':[0]*repeat, 'strongly':[0]*repeat}
+        # self.type_agents_for_iter = {'uniform':[0]*repeat, 'loosely':[0]*repeat, 'strongly':[0]*repeat}
         for i in range(repeat):
             self.run()
             self.process_iteration(i,self.store.agents_changes)
@@ -238,22 +238,28 @@ class Model:
         plt.title('Amount of changes in user\'s preferences per run')
         plt.savefig('content-based results.png')
         # plt.show()
-        uniform_norm = []
-        loosely_norm = []
-        strongly_norm = []
+        uniform_cum = []
+        loosely_cum = []
+        strongly_cum = []
         for i in range(iterations):
-            uniform_norm[i] = uniform[i] / self.type_agents_for_iter['uniform'][i]
-            loosely_norm[i] = loosely[i] / self.type_agents_for_iter['loosely'][i]
-            strongly_norm[i] = strongly[i] / self.type_agents_for_iter['strongly'][i]
+            if i == 0:
+                uniform_cum.append(uniform[i])
+                loosely_cum.append(loosely[i])
+                strongly_cum.append(strongly[i])
+            else:
+                uniform_cum.append(uniform_cum[i-1] + uniform[i])
+                loosely_cum.append(loosely_cum[i-1] + loosely[i])
+                strongly_cum.append(strongly_cum[i-1] + strongly[i])
         plt.figure(2)
-        plt.scatter(t,uniform_norm)
-        plt.scatter(t,loosely_norm)
-        plt.scatter(t,strongly_norm)
+        plt.plot(t,uniform_cum)#, 'r', label='uniform random user')
+        plt.plot(t,loosely_cum)#, 'b', label='loosely preference user')
+        plt.plot(t,strongly_cum)#, 'g', label='strongly preference user')
         plt.legend(['uniform random user', 'loosely preference user', 'strongly preference user'])
         plt.xlabel('Simulation runs')
-        plt.ylabel('Normalized amount of changes')
-        plt.title('Normalized amount of changes in user\'s preferences per run')
-        plt.savefig('content-based results normalized.png')
+        plt.ylabel('Cumulative amount of changes')
+        plt.title('Cumulative amount of changes in user\'s preferences per run')
+        plt.savefig('content-based results cumulative.png')
+        # plt.show()
         
         print('Mean of uniform random users changes: ',np.mean(uniform))
         print('Median of uniform random users changes: ',np.median(uniform))
@@ -268,18 +274,18 @@ class Model:
             ag:agent.Agent = self.agents_list[ag_index]
             if type(ag) is agent.UniformAgent:
                 self.changes_for_iter['uniform'][iter] += len(changes_list[id])
-                self.type_agents_for_iter['uniform'][iter] +=1
+                # self.type_agents_for_iter['uniform'][iter] +=1
             elif type(ag) is agent.LooselyPreferenceAgent:
                 self.changes_for_iter['loosely'][iter] += len(changes_list[id])
-                self.type_agents_for_iter['loosely'][iter] +=1
+                # self.type_agents_for_iter['loosely'][iter] +=1
             elif type(ag) is agent.StronglyPreferenceAgent:
                 self.changes_for_iter['strongly'][iter] += len(changes_list[id])
-                self.type_agents_for_iter['strongly'][iter] +=1
+                # self.type_agents_for_iter['strongly'][iter] +=1
             else:
                 pass
 
 start = time.time()
 model = Model('content_based')
-model.simulate(repeat=50,duration=1440)
+model.simulate(repeat=30,duration=1440)
 end = time.time()
 print('running time', round(end - start,4))

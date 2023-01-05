@@ -154,7 +154,7 @@ class UniformAgent(Agent):
         changed = []
         if add_to_preference == 'yes':
             for i in range(len(rates)):
-                if rnd.choice([True,False]):
+                if rates[i] > 0:
                     self.preference[songs[i].id] = rnd.uniform(0,1)
                     changed.append(songs[i])
         return changed
