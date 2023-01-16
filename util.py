@@ -40,7 +40,10 @@ def vectorize_songs(song_list:list):
         for gen in genres_by_song[j]:
             i = genres.index(gen)
             freq_matrix[ind+i, j] = 1
-
+    
+    for s in range(len(song_list)):
+        song_list[s].vector = freq_matrix[:,s]
+        
     return freq_matrix
 
 def tokenize_text(text:str):

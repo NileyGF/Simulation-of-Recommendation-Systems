@@ -51,9 +51,6 @@ class User:
 
         id_ind = util.get_Id_Ind_dict(song_list)
 
-        # vector = [0]*(len(titles_vocabulary) + len(artists) + len(genres))
-        
-        # vector = np.ndarray(shape=(len(titles_vocabulary) + len(artists) + len(genres)), dtype=float)
         vector = np.zeros(shape=(len(titles_vocabulary) + len(artists) + len(genres)), dtype=float)
         if len(self.rates) == 0:
             self.vector = vector
@@ -79,15 +76,14 @@ class User:
         self.vector = vector
         return vector
 
-    # def set_static_info(self, age:int, gender:Gender, location:Location, listening_behavior:Listening_behavior):
-    #     if age > 10 and age < 120:
-    #         self.age = age
-    #     self.gender = gender
-    #     self.location = location
-    #     self.listening_behavior = listening_behavior
-    #     self.songs_to_recommend = ns_lb[listening_behavior]
-    #     pass
-
+    def set_static_info(self,listening_behavior:Listening_behavior,prefered_artists:list,prefered_genres:list):
+        self.listening_behavior = listening_behavior
+        self.songs_to_recommend = ns_lb[listening_behavior]
+        if isinstance(prefered_artists,list):
+            self._explicit_prefered_artist(prefered_artists)
+        if isinstance(prefered_genres,list):
+            self._explicit_prefered_genres(prefered_genres)
+        
     def rate_from_Dataframe(DataFrame:pd.DataFrame):
         unique_users = DataFrame['user_id'].unique()
         ret = {id:[] for id in unique_users}
@@ -105,7 +101,24 @@ class User:
             ret[user_id] = user
         return ret
     
-    def top_prefered_artists(self, DataFrame:pd.DataFrame, top):
+    def top_rated_songs_ids(self, top:int=10,all=True):
+        top_songs = self.rates.copy()
+        top_songs = dict(sorted(top_songs.items(), key=lambda item: item[1], reverse=True))
+        if all: return top_songs
+        try: top = int(top)
+        except: top = 10
+        i=0
+        while list(top_songs.values())[i] > 0:
+            i+=1
+            if i >=top: break
+        if i < top: top = i
+
+        return slice_dict(top_songs, 0, top)
+
+    def top_prefered_artists(self, DataFrame:pd.DataFrame, top:int = None):
+        if top != None:
+            try: top = int(top)
+            except: top = None
         if not self.impl_artists:
             self._implicit_prefered_artist(DataFrame)
         if not self.expl_artists:
@@ -125,6 +138,8 @@ class User:
                         self.prefered_artists[art] = round( 0.4 * self.impl_artists[art] + 0.6 * self.expl_artists[art], 4)
         self.prefered_artists = dict(sorted(self.prefered_artists.items(), key=lambda item: item[1], reverse=True))
         # Return only non-0-relevance ones
+        if top == None: 
+            return self.prefered_artists
         i=0
         while list(self.prefered_artists.values())[i] > 0:
             i+=1
@@ -132,7 +147,10 @@ class User:
         if i < top: top = i
 
         return slice_dict(self.prefered_artists,0,top)
-    def top_prefered_genres(self, DataFrame:pd.DataFrame, top):
+    def top_prefered_genres(self, DataFrame:pd.DataFrame, top:int = None):
+        if top != None:
+            try: top = int(top)
+            except: top = None
         if not self.impl_genres:
             self._implicit_prefered_genres(DataFrame)
         if not self.expl_genres:
@@ -152,6 +170,8 @@ class User:
                         self.prefered_genres[gen] = round(0.4 * self.impl_genres[gen] + 0.6 * self.expl_genres[gen], 4)
         self.prefered_genres = dict(sorted(self.prefered_genres.items(), key=lambda item: item[1], reverse=True))
         # Return only non-0-relevance ones
+        if top == None: 
+            return self.prefered_genres
         i=0
         while list(self.prefered_genres.values())[i] > 0:
             i+=1
@@ -171,7 +191,6 @@ class User:
         self.expl_genres = {gen:4.5 for gen in genres_list}
     
     def implicit_category_profile(self, songsFrame:pd.DataFrame, category:str):
-        number_songs = songsFrame.shape[0]
         category_profile = {}
         for index, row in songsFrame.iterrows():
             s_id = row['song_id']
@@ -181,12 +200,12 @@ class User:
             for cat in cat_list:
                 so_far = category_profile.get(cat)
                 if not so_far:
-                    category_profile[cat] = rate 
+                    category_profile[cat] = (1,rate) 
                 else: 
-                    category_profile[cat] += rate
+                    category_profile[cat] = (category_profile[cat][0] + 1, category_profile[cat][1] + rate)
         for cat in category_profile:
             #i would like to change the normalization to divide for the number of songs with that cat.
-            category_profile[cat] = category_profile[cat] / number_songs
+            category_profile[cat] = category_profile[cat][1] / category_profile[cat][0]
         return category_profile
     
 def slice_dict(dictionary:dict, from_ind:int, to_ind:int):

@@ -9,6 +9,7 @@ import Agents_actions as act
 import content_based
 import Data
 from Songs_Modeling import Song
+from Core import *
 
 class Profile_Generator:
     def __init__(self,songsFrame:pd.DataFrame,userFrame:pd.DataFrame):
@@ -47,7 +48,7 @@ class Profile_Generator:
         return sim_users
       
 class Music_store():
-    def __init__(self, recommender:content_based.ContentBasedRecommender, close_time = 300):
+    def __init__(self, recommender:Recommender, close_time = 300):
         rnd.seed(time.time())
         self.num_arrivals = 0           # ammount of arrivals until self.time
         self.num_departures = 0         # ammount of departures until self.time
@@ -67,12 +68,6 @@ class Music_store():
         self.recommender = recommender
             
     def user_arrival(self,user:agent.Agent):
-        # rnd.seed(time.time())
-        # self.next_arrival = min(self.next_arrival,self.next_departure,self.close_time)
-        # if not (self.next_arrival <= self.next_departure and self.next_arrival <= self.close_time):
-        #     print("Nooooo")
-        #     return 
-        # update store status
         now = self.next_arrival
         lapse = rnd.gauss(5,0.5)
         if lapse < 0: lapse = 3
@@ -159,10 +154,14 @@ class Music_store():
                 self.agents_changes[user.id].append(s)
 
 class Model:
-    def __init__(self, recommender_system):
+    def __init__(self, recommender_system:str):
         dataframe = Data.read_songs_info('music_database_with_lists.csv')
         usersframe = Data.read_users_songs_info('ratings.csv')
-        self.recommender = content_based.ContentBasedRecommender(dataframe,usersframe)
+        
+
+        recom_dict = {'content-based':content_based.ContentBasedRecommender(dataframe,usersframe)}
+        self.recom_str = recommender_system
+        self.recommender = recom_dict.get(self.recom_str)
         self.store = Music_store(self.recommender)
         self.prof_gen = Profile_Generator(dataframe,usersframe)
     
@@ -211,19 +210,8 @@ class Model:
             running = (self.store.time <= self.store.close_time)
 
     def end_state(self,iterations):
-        # print('Number of Arrivals: ', self.store.num_arrivals)
-        # print()
-        # print('Number of Departure: ', self.store.num_departures)
-        # print()
-        # print('Number of Interactions: ', self.store.num_post+self.store.num_read)
-        # print('\tPosts: ', self.store.num_post)
-        # print('\tReadings: ', self.store.num_read)
-        # print()
-        # print('Agents\' changes due to the system:')
-        # for id in self.store.agents_changes:
-        #     if len(self.store.agents_changes[id]) > 0:
-        #         for s in self.store.agents_changes[id]:
-        #             print('\tAgent: ', id, 'added song: ',s)
+        path_dict = {'content-based':'content-based data'}
+        path = path_dict[self.recom_str] + '/'
         uniform = self.changes_for_iter['uniform']
         loosely = self.changes_for_iter['loosely']
         strongly = self.changes_for_iter['strongly']
@@ -236,7 +224,8 @@ class Model:
         plt.xlabel('Simulation runs')
         plt.ylabel('Amount of changes')
         plt.title('Amount of changes in user\'s preferences per run')
-        plt.savefig('content-based results.png')
+        title = path + ' results.png'
+        plt.savefig(title)
         # plt.show()
         uniform_cum = []
         loosely_cum = []
@@ -258,7 +247,8 @@ class Model:
         plt.xlabel('Simulation runs')
         plt.ylabel('Cumulative amount of changes')
         plt.title('Cumulative amount of changes in user\'s preferences per run')
-        plt.savefig('content-based results cumulative.png')
+        title = path + ' results cumulative.png'
+        plt.savefig(title)
         # plt.show()
         
         print('Mean of uniform random users changes: ',np.mean(uniform))
@@ -288,4 +278,4 @@ start = time.time()
 model = Model('content_based')
 model.simulate(repeat=30,duration=1440)
 end = time.time()
-print('running time', round(end - start,4))
+print('running time:', round(end - start,4),'sec')

@@ -1,3 +1,4 @@
+from Core import *
 from Songs_Modeling import Song
 from Users_Modeling import User
 import Agents as agent
@@ -16,9 +17,6 @@ from nltk.corpus import stopwords
 # dataframe = Data.read_songs_info('music_database_with_lists.csv')
 # usersframe = Data.read_users_songs_info('ratings.csv')
 
-class Recommender:
-    def __init__(self,songsFrame:pd.DataFrame,userFrame:pd.DataFrame):
-        pass
 
 class ContentBasedRecommender(Recommender):
     def __init__(self,songsFrame:pd.DataFrame,userFrame:pd.DataFrame):
@@ -26,8 +24,6 @@ class ContentBasedRecommender(Recommender):
         self.profiling = Profile_learner(userFrame,self.content_simil.songs_list)
         self.filter = Filtering_component(self.content_simil.songs_list)
         self.user_conv = {}
-        # self.content_simil.extract_info()
-        # self.tf_idf = sim._tf_x_idf(self.content_simil.title_list)
     
     # def _print_message(self, song:Song, recom_song):
     #     rec_items = len(recom_song)
@@ -81,7 +77,7 @@ class Content_analyzer():
     
     def extract_info(self):
         self.songs_list = Song.from_Dataframe(self.songsFrame)
-        file = open('content-based system/songs_list.bin','wb')
+        file = open('content-based data/songs_list.bin','wb')
         pickle.dump(self.songs_list,file)
         file.close
         self.title_list = [s.title for s in self.songs_list]
@@ -98,14 +94,14 @@ class Profile_learner():
     def profile_users(self):
         self.users_rates = User.rate_from_Dataframe(self.usersframe)
         # try:
-        #     uf = open('content-based system/user_list.bin','rb')
+        #     uf = open('content-based data/user_list.bin','rb')
         #     self.users_dict = pickle.load(uf)
         #     uf.close()
         # except:
         self.users_dict = User.users_from_Dataframe(self.users_rates)
             # pass
         self.next_id = max(list(self.users_rates.keys())) + 1
-        file = open('content-based system/user_list.bin','wb')
+        file = open('content-based data/user_list.bin','wb')
         pickle.dump(self.users_dict, file)
         file.close()
     
@@ -202,7 +198,6 @@ class Filtering_component():
         simil = sim.Similarity()
         user_song_sim = {s:0 for s in range(songs_freq_matrix.shape[1])}
         for s in range(songs_freq_matrix.shape[1]):
-            # song_col = 
             user_song_sim[s] = simil.cosine_similarity(songs_freq_matrix[:,s],user.vector)
         user_song_sim = dict(sorted(user_song_sim.items(), key=lambda item: item[1], reverse=True))
         return user_song_sim
