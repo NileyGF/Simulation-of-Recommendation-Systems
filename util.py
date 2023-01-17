@@ -54,7 +54,6 @@ def tokenize_text(text:str):
     text = text.translate(str.maketrans("!\"'()*+,-./:;<=>?@[]\\^_`{|}~", ' '*len("!\"'()*+,-./:;<=>?@[]\\^_`{|}~")))
     # generate tokens
     tokens = text.split()
-    # remove stopwords and lemmatize
     return tokens
 def process(texts_list:list):
     # list of all indexed terms

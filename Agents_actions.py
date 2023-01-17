@@ -12,8 +12,6 @@ class RegisterAction(Action):
         self.expl_genres = expl_genres
     def register_explicit(self,user): 
         user.set_static_info(self.list_behav,self.expl_artists,self.expl_genres)
-        # user._explicit_prefered_artist(self.expl_artists)
-        # user._explicit_prefered_genres(self.expl_genres)
     
 class InteractAction(Action):
     pass

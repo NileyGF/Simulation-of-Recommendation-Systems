@@ -24,13 +24,7 @@ class Knowledge_based_recommender(Recommender):
 
     def profile_users(self):
         self.users_rates = User.rate_from_Dataframe(self.usersframe)
-        # try:
-        #     uf = open('knowledge-based data/user_list.bin','rb')
-        #     self.users_dict = pickle.load(uf)
-        #     uf.close()
-        # except:
         self.users_dict = User.users_from_Dataframe(self.users_rates)
-            # pass
         self.next_id = max(list(self.users_rates.keys())) + 1
         file = open('knowledge-based data/user_list.bin','wb')
         pickle.dump(self.users_dict, file)
@@ -55,7 +49,6 @@ class Knowledge_based_recommender(Recommender):
             self.next_id += 1
             user_id = self.user_conv[ag_id]
         else:
-            print("It's not a new user")
             return None
             
         user = User(user_id)

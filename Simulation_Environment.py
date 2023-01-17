@@ -70,7 +70,7 @@ class Music_store():
             
     def user_arrival(self,user:agent.Agent):
         now = self.next_arrival
-        lapse = rnd.gauss(23,0.5)
+        lapse = rnd.gauss(5,0.5)
         if lapse < 0: lapse = 3
         self.next_arrival = int(now + lapse)
         self.num_arrivals +=1
@@ -98,10 +98,6 @@ class Music_store():
                 self.agents_changes[user.id].append(s)
     
     def user_departure(self,user:agent.Agent):
-        # rnd.seed(time.time())
-        # if not (self.next_departure <= self.next_arrival and self.next_departure <= self.close_time):
-        #     print("Nooooo")
-        #     return 
         self.time = self.next_departure
         self.num_departures +=1
         self.users_in_store -=1
@@ -115,10 +111,6 @@ class Music_store():
         self.events['departure'].append((user.id, self.time))
         
     def empty_interaction(self,user:agent.Agent,action:act.EmptyAction):
-        # if not (self.next_interact <= self.next_departure and self.next_interact <= self.next_arrival):
-        #     print("Nooooo")
-        #     return 
-        # update store status
         now = self.next_interact
         lapse = rnd.gauss(10,2)
         if lapse < 0: lapse = 7
@@ -170,7 +162,6 @@ class Model:
         self.agents_list = self.prof_gen.generate(num_users)
         self.store.close_time = duration
         self.changes_for_iter = {'uniform':[0]*repeat, 'loosely':[0]*repeat, 'strongly':[0]*repeat}
-        # self.type_agents_for_iter = {'uniform':[0]*repeat, 'loosely':[0]*repeat, 'strongly':[0]*repeat}
         for i in range(repeat):
             self.run()
             self.process_iteration(i,self.store.agents_changes)
@@ -219,16 +210,15 @@ class Model:
         strongly = self.changes_for_iter['strongly']
         t = np.linspace(0,iterations,iterations)
         plt.figure(1)
-        plt.scatter(t,uniform)#, 'r', label='uniform random user')
-        plt.scatter(t,loosely)#, 'b', label='loosely preference user')
-        plt.scatter(t,strongly)#, 'g', label='strongly preference user')
+        plt.scatter(t,uniform)
+        plt.scatter(t,loosely)
+        plt.scatter(t,strongly)
         plt.legend(['uniform random user', 'loosely preference user', 'strongly preference user'])
         plt.xlabel('Simulation runs')
         plt.ylabel('Amount of changes')
         plt.title('Amount of changes in user\'s preferences per run')
         title = path + 'results.png'
         plt.savefig(title)
-        # plt.show()
         uniform_cum = []
         loosely_cum = []
         strongly_cum = []
@@ -242,16 +232,15 @@ class Model:
                 loosely_cum.append(loosely_cum[i-1] + loosely[i])
                 strongly_cum.append(strongly_cum[i-1] + strongly[i])
         plt.figure(2)
-        plt.plot(t,uniform_cum)#, 'r', label='uniform random user')
-        plt.plot(t,loosely_cum)#, 'b', label='loosely preference user')
-        plt.plot(t,strongly_cum)#, 'g', label='strongly preference user')
+        plt.plot(t,uniform_cum)
+        plt.plot(t,loosely_cum)
+        plt.plot(t,strongly_cum)
         plt.legend(['uniform random user', 'loosely preference user', 'strongly preference user'])
         plt.xlabel('Simulation runs')
         plt.ylabel('Cumulative amount of changes')
         plt.title('Cumulative amount of changes in user\'s preferences per run')
         title = path + 'results cumulative.png'
         plt.savefig(title)
-        # plt.show()
         
         print('Mean of uniform random users changes: ',np.mean(uniform))
         print('Median of uniform random users changes: ',np.median(uniform))
@@ -266,24 +255,21 @@ class Model:
             ag:agent.Agent = self.agents_list[ag_index]
             if type(ag) is agent.UniformAgent:
                 self.changes_for_iter['uniform'][iter] += len(changes_list[id])
-                # self.type_agents_for_iter['uniform'][iter] +=1
             elif type(ag) is agent.LooselyPreferenceAgent:
                 self.changes_for_iter['loosely'][iter] += len(changes_list[id])
-                # self.type_agents_for_iter['loosely'][iter] +=1
             elif type(ag) is agent.StronglyPreferenceAgent:
                 self.changes_for_iter['strongly'][iter] += len(changes_list[id])
-                # self.type_agents_for_iter['strongly'][iter] +=1
             else:
                 pass
 
-# start = time.time()
-# model = Model('content-based')
-# model.simulate(repeat=30,duration=1440)
-# end = time.time()
-# print('running time:', round(end - start,4),'sec')
+start = time.time()
+model = Model('content-based')
+model.simulate(repeat=30,duration=1440)
+end = time.time()
+print('running time:', round(end - start,4),'sec')
 
 start = time.time()
 model = Model('knowledge-based')
-model.simulate(repeat=30,duration=700)
+model.simulate(repeat=20,duration=700)
 end = time.time()
 print('running time:', round(end - start,4),'sec')

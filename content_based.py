@@ -12,12 +12,6 @@ import numpy as np
 import pandas as pd
 from nltk.corpus import stopwords
 
-# stopwords_list = set(stopwords.words('english'))
-# path_music_data= os.path.join('data', 'music database_count.csv')
-# dataframe = Data.read_songs_info('music_database_with_lists.csv')
-# usersframe = Data.read_users_songs_info('ratings.csv')
-
-
 class ContentBasedRecommender(Recommender):
     def __init__(self,songsFrame:pd.DataFrame,userFrame:pd.DataFrame):
         self.content_simil = Content_analyzer(songsFrame)
@@ -46,10 +40,7 @@ class ContentBasedRecommender(Recommender):
     def recommend(self,ag:agent.Agent):
         user = self.profiling.users_dict[self.user_conv[ag.id]]
         recommendation = self.filter.recomend_to_user(user,self.content_simil.freq_matrix)
-        # recommendation = s_sim_list.copy()
-        # for i in range(len(recommendation)):
-        #     recommendation[i] = recommendation[i][1]
-        # self._print_message(user,s_sim_list)
+
         ratings, changed = ag.received_recommendation(recommendation)
         for i in range(len(recommendation)):
             self.profiling.new_rate(user, recommendation[i], ratings[i])
@@ -86,13 +77,7 @@ class Profile_learner():
 
     def profile_users(self):
         self.users_rates = User.rate_from_Dataframe(self.usersframe)
-        # try:
-        #     uf = open('content-based data/user_list.bin','rb')
-        #     self.users_dict = pickle.load(uf)
-        #     uf.close()
-        # except:
         self.users_dict = User.users_from_Dataframe(self.users_rates)
-            # pass
         self.next_id = max(list(self.users_rates.keys())) + 1
         file = open('content-based data/user_list.bin','wb')
         pickle.dump(self.users_dict, file)
@@ -106,14 +91,6 @@ class Profile_learner():
             self.vectors_by_user.append(user.vector)
         return self.vectors_by_user
 
-    """  def artists_to_recommend(self, user_id:int, top:int):
-        user:User = self.users_dict[user_id]
-        ret = user.top_prefered_artists(dataframe,top)
-        return ret
-    def genres_to_recommend(self, user_id:int, top:int):
-        user:User = self.users_dict[user_id]
-        ret = user.top_prefered_genres(dataframe,top)
-        return ret """
     def revector(self,user:User):
         user.vectorize_user(self.song_l)
         self.vectors_by_user.append(user.vector)
@@ -202,9 +179,3 @@ class Filtering_component():
             top += 1
         self.top_pop_songs = sorted_by_listened[:top]
         
-
-# cb = ContentBasedRecommender()
-# u = cb.profiling.users_dict[8]
-# cb.recommend(u)
-# print(cb.profiling.artists_to_recommend(3,5))
-# print(cb.profiling.genres_to_recommend(3,5))

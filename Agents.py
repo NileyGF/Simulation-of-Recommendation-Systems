@@ -40,13 +40,6 @@ class Behavior_Distribution:
 
 class Agent():
     """ Utility-based agents. Their utility function is listening songs similars to their preference """
-    # def __init__(self, id: int, behavior_distributions:Behavior_Distribution, preference:dict, listening_behavior:Listening_behavior):
-    #     self.id = id
-    #     self.preference = preference
-    #     self.listening_behavior = listening_behavior
-    #     if not behavior_distributions:
-    #         self.behavior_dist = Behavior_Distribution()
-    #     else: self.behavior_dist = behavior_distributions
 
     def register_in_system(self) -> act.Action:
         expl_dist:dict = self.behavior_dist['explicit_dist']

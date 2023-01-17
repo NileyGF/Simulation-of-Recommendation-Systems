@@ -59,9 +59,6 @@ class Variable:
     def unassign(self):
         self.__value = None
 
-    # def remove_from_domain(self, value):
-    #     self.__domain.remove(value)
-
     def __str__(self) -> str:
         name =""
         if self.__name: name = str(self.__name)
@@ -90,42 +87,13 @@ class Constraint:
         """ evaluate_constraint: a function  tuple -> bool"""
         self.__variables = tuple(variables)
 
-        # if len(self.__variables) != len(frozenset(self.__variables)):
-        #     self.__variables = list()
-        #     seen_variables = set()
-        #     for var in variables:
-        #         if var not in seen_variables:
-        #             self.__variables.append(var)
-        #             seen_variables.add(var)
-        #     self.__variables = tuple(self.__variables)
-
         self.__evaluate_constraint = evaluate_constraint
         self.__i_consistent_assignments = set()
-        # if len(self.__variables) == 1:
-        #     self.__enforce_unary_constraint()
 
-    # def __enforce_unary_constraint(self):
-    #     variable, *_ = self.__variables
-    #     variable.domain = list(self.get_consistent_domain_values(variable))
 
     def __get_variables(self):
         return self.__variables
     variables = property(__get_variables)
-
-    # @classmethod
-    # def from_domains(cls, evaluate_constraint, *domains):
-    #     variables = list()
-    #     for elem in domains:
-    #         try:
-    #             if type(elem) is str:
-    #                 raise TypeError
-    #             elem_iterator = iter(elem)
-    #             variables.append(Variable(elem))
-    #         except TypeError:
-    #             last_variable = variables[-1]
-    #             if elem in last_variable.domain:
-    #                 last_variable.assign(elem)
-    #     return cls(variables, evaluate_constraint)
 
     def __bool__(self) -> bool:
         # if self.__i_consistent_assignments:
@@ -139,14 +107,9 @@ class Constraint:
         for var in self.__variables:
             if var:
                 assigned_variables.append(var)
-        # all_values = map(Constraint.__value_getter, self.__variables)
-        # values_of_assigned_variables = tuple(filter(None.__ne__, all_values))
         if self.__i_consistent_assignments:
             return self.__evaluate_constraint(assigned_variables) and self.__is_i_consistent_assignment()
         return self.__evaluate_constraint(assigned_variables)
-        # if self.__i_consistent_assignments:
-        #     return self.__evaluate_constraint(self.__variables) and self.__is_i_consistent_assignment()
-        # return self.__evaluate_constraint(self.__variables)
 
     def get_consistent_domain_values(self, variable: Variable) -> set:
         if variable not in self.__variables:
@@ -199,22 +162,10 @@ class UncontainedVariableError(ConstraintError):
 
 class ConstraintProblem:
 
-    # __is_consistent_method_caller = methodcaller("is_consistent")
-
     def __init__(self, constraints):
         self.__constraints = tuple(constraints)
         self.__variables_to_constraints_map = _build_variables_to_constraints_mapping(self.__constraints)
         self.__constraint_graph = _build_constraint_graph_as_adjacency_list(self.__variables_to_constraints_map)
-        # self.__name_to_variable_map = name_to_variable_map
-        # if name_to_variable_map is not None:
-        #     assert frozenset(self.__name_to_variable_map.values()).issubset(self.get_variables()), \
-        #         "name_to_variable_map.values() is not a subset of the variables given in constraints. "
-
-    # def get_name_to_variable_map(self):
-    #     return self.__name_to_variable_map
-
-    # def is_completely_unassigned(self) -> bool:
-    #     return not any(self.__variables_to_constraints_map.keys())
 
     def is_completely_assigned(self) -> bool:
         return all(self.__variables_to_constraints_map.keys())
@@ -223,15 +174,8 @@ class ConstraintProblem:
         is_consistent_results = map(methodcaller("is_consistent"), self.__constraints)
         return all(is_consistent_results)
 
-    # def is_completely_consistently_assigned(self) -> bool:
-    #     return all(self.__constraints)
-
     def get_variables(self):
         return self.__variables_to_constraints_map.keys()
-
-    # def get_assigned_variables(self):
-    #     assigned_variables = filter(None, self.__variables_to_constraints_map.keys())
-    #     return frozenset(assigned_variables)
 
     def get_unassigned_variables(self):
         unassigned_variables = []
@@ -243,10 +187,6 @@ class ConstraintProblem:
     def get_neighbors(self, variable: Variable):
         return self.__constraint_graph[variable]
 
-    # def get_assigned_neighbors(self, variable: Variable):
-    #     assigned_neighbors = filter(None, self.__constraint_graph[variable])
-    #     return frozenset(assigned_neighbors)
-
     def get_unassigned_neighbors(self, variable: Variable):
         unassigned_neighbors = []# filterfalse(None, self.__constraint_graph[variable])
         for const in self.__constraint_graph[variable]:
@@ -257,21 +197,6 @@ class ConstraintProblem:
     def get_constraints(self):
         return self.__constraints
 
-    # def get_consistent_constraints(self):
-    #     consistent_constraints = filter(methodcaller("is_consistent"), self.__constraints)
-    #     return frozenset(consistent_constraints)
-
-    # def get_inconsistent_constraints(self):
-    #     inconsistent_constraints = [] #filterfalse(methodcaller("is_consistent"), self.__constraints)
-    #     for const in self.__constraints:
-    #         if not const.isconsistent():
-    #             inconsistent_constraints.append(const)
-    #     return frozenset(inconsistent_constraints)
-
-    # def get_satisfied_constraints(self):
-    #     satisfied_constraints = filter(None, self.__constraints)
-    #     return frozenset(satisfied_constraints)
-
     def get_unsatisfied_constraints(self):
         unsatisfied_constraints = [] #filterfalse(None, self.__constraints)
         for const in self.__constraints:
@@ -279,49 +204,10 @@ class ConstraintProblem:
                 unsatisfied_constraints.append(const)
         return frozenset(unsatisfied_constraints)
 
-    # def get_constraints_containing_variable(self, variable: Variable):
-    #     return frozenset(self.__variables_to_constraints_map[variable])
-
     def get_consistent_domain(self, variable: Variable) -> set:
         consistent_domains = map(methodcaller("get_consistent_domain_values", variable),
                                  self.__variables_to_constraints_map[variable])
         return set.intersection(*consistent_domains)
-
-    # def get_current_assignment(self):
-    #     return {variable: variable.value for variable in self.__variables_to_constraints_map.keys()}
-
-    # def unassign_all_variables(self, read_only_variables = None):
-    #     if read_only_variables is None:
-    #         for variable in self.__variables_to_constraints_map.keys():
-    #             variable.unassign()
-    #     else:
-    #         for variable in self.__variables_to_constraints_map.keys():
-    #             if variable not in read_only_variables:
-    #                 variable.unassign()
-
-    # def assign_variables_from_assignment(self, assignment):
-    #     for variable in self.__variables_to_constraints_map.keys():
-    #         if assignment[variable] is not None:
-    #             variable.assign(assignment[variable])
-    #         else:
-    #             variable.unassign()
-
-    # def assign_variables_with_random_values(self, read_only_variables = None, action_history = None):
-    #     for variable in self.__variables_to_constraints_map.keys():
-    #         if read_only_variables is None or variable not in read_only_variables:
-    #             value = choice(variable.domain)
-    #             variable.assign(value)
-    #             if action_history is not None:
-    #                 action_history.append((variable, value))
-    #     return action_history
-
-    # def get_constraint_graph_as_adjacency_list(self):
-    #     return self.__constraint_graph
-
-    # def add_constraint(self, constraint: Constraint):
-    #     new_constraints = self.__constraints | {constraint}
-    #     self.__variables_to_constraints_map = _build_variables_to_constraints_mapping(new_constraints)
-    #     self.__constraint_graph = _build_constraint_graph_as_adjacency_list(self.__variables_to_constraints_map)
 
     def __str__(self):
         state = "\n  constraint_problem is completely assigned: " + str(all(self.__variables_to_constraints_map)) + \
@@ -370,10 +256,6 @@ def least_constraining_value(constraint_problem: ConstraintProblem, variable: Va
 
 
 def minimum_remaining_values(constraint_problem: ConstraintProblem, variables = None):
-    if variables is not None:  # then we're using minimum_remaining_values as secondary key
-        min_variable = min(variables, key=lambda variable: len(constraint_problem.get_consistent_domain(variable)))
-        return frozenset({min_variable})
-
     unassigned_variables = constraint_problem.get_unassigned_variables()
     min_variable = min(unassigned_variables, key=lambda var: len(constraint_problem.get_consistent_domain(var)))
     min_remaining_values = len(constraint_problem.get_consistent_domain(min_variable))
@@ -382,7 +264,7 @@ def minimum_remaining_values(constraint_problem: ConstraintProblem, variables = 
     return list(min_variables)
 
 def degree_heuristic(constraint_problem: ConstraintProblem, variables):
-    if variables is not None:  # then we're using degree_heuristic as secondary key
+    if variables is not None: 
         max_variable = max(variables, key=lambda var: len(constraint_problem.get_unassigned_neighbors(var)))
         return max_variable
 
@@ -420,19 +302,4 @@ def __classic_heuristic_backtrack(constraint_problem: ConstraintProblem, with_hi
             __actions_history.append((selected_variable, None))
 
     return False
-
-
-# def always_satisfied(values: tuple) -> bool:
-#     return True
-
-# def never_satisfied(values: tuple) -> bool:
-#     return False
-
-# def all_diff_constraint_evaluator(values: tuple) -> bool:
-#     seen_values = set()
-#     for val in values:
-#         if val in seen_values:
-#             return False
-#         seen_values.add(val)
-#     return True
 

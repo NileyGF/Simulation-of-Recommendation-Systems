@@ -205,7 +205,6 @@ class User:
                 else: 
                     category_profile[cat] = (category_profile[cat][0] + 1, category_profile[cat][1] + rate)
         for cat in category_profile:
-            #i would like to change the normalization to divide for the number of songs with that cat.
             category_profile[cat] = category_profile[cat][1] / category_profile[cat][0]
         return category_profile
     
