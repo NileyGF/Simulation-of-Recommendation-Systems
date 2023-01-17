@@ -165,7 +165,7 @@ class Model:
         for i in range(repeat):
             self.run()
             self.process_iteration(i,self.store.agents_changes)
-            self.store = Music_store(self.recommender)
+            self.store = Music_store(self.recommender,duration)
         self.end_state(repeat)
     
     def run(self):  
@@ -270,6 +270,6 @@ print('running time:', round(end - start,4),'sec')
 
 start = time.time()
 model = Model('knowledge-based')
-model.simulate(repeat=20,duration=700)
+model.simulate(repeat=30,duration=700)
 end = time.time()
 print('running time:', round(end - start,4),'sec')
