@@ -18,3 +18,5 @@ class Recommender:
     
     def recommend(self,ag:agent.Agent):
         pass
+    def get_songs(self):
+        pass

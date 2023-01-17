@@ -40,10 +40,10 @@ class Behavior_Distribution:
 
 class Agent():
     """ Utility-based agents. Their utility function is listening songs similars to their preference """
-    # def __init__(self, id: int, behavior_distributions:Behavior_Distribution, preference:dict, listenin_behavior:Listening_behavior):
+    # def __init__(self, id: int, behavior_distributions:Behavior_Distribution, preference:dict, listening_behavior:Listening_behavior):
     #     self.id = id
     #     self.preference = preference
-    #     self.listenin_behavior = listenin_behavior
+    #     self.listening_behavior = listening_behavior
     #     if not behavior_distributions:
     #         self.behavior_dist = Behavior_Distribution()
     #     else: self.behavior_dist = behavior_distributions
@@ -56,23 +56,22 @@ class Agent():
         if action_str == 'none':
             return act.EmptyAction()
         elif action_str == 'artists':
-            return act.RegisterAction(self.preference['artists'])
+            return act.RegisterAction(self.listening_behavior, self.preference['artists'])
         elif action_str == 'genres':
-            return act.RegisterAction(self.preference['genres'])
+            return act.RegisterAction(self.listening_behavior, self.preference['genres'])
         elif action_str == 'artist_genres':
-            return act.RegisterAction(self.preference['artists'], self.preference['genres'])
+            return act.RegisterAction(self.listening_behavior, self.preference['artists'], self.preference['genres'])
      
     def similarity_to_preference(self, song): 
         """ utility function """
         raise NotImplementedError()
 
-    def received_recommendation(self, recommendation: list) -> act.Action:
-        diff_function = lambda song, rate: (rate  - self.similarity_to_preference(song))**2
+    def received_recommendation(self, recommendation: list):
+        diff_function = lambda song, rate: (rate  - self.similarity_to_preference(song)*5)**2
         rate_recommendation = self.__stochasctic_hill_climbing(100, diff_function, recommendation)
         return rate_recommendation
 
     def __stochasctic_hill_climbing(self, iterations:int, min_funct, songs_population):
-        # pobl_size = len(sol_range)
         # initialization:
         rnd.seed(time.time())
         bounds = [1,5]
@@ -96,8 +95,7 @@ class Agent():
                     #improved solution
                     r[0] = candidate_rate
                     r[1] = candidate_eval
-                # report progress
-                # print('> %s - iter: %d f(%s) = %.5f' % (str(s),it, r[0], r[1])) 
+
         
         for p in range(len(rate_population)):
             r = rate_population[p][0]
@@ -122,10 +120,10 @@ class Agent():
 
 
 class UniformAgent(Agent):
-    """ Uniformily Random Preference User """
-    def __init__(self, id: int,listenin_behavior = Listening_behavior.Casuals):
+    """ Uniformly Random Preference User """
+    def __init__(self, id: int,listening_behavior = Listening_behavior.Casuals):
         self.id = id
-        self.listenin_behavior = Listening_behavior.Casuals
+        self.listening_behavior = Listening_behavior.Casuals
         self.behavior_dist = Behavior_Distribution()
         self.preference = {}
    
@@ -141,7 +139,7 @@ class UniformAgent(Agent):
             sim = self.preference[song.id]
         return sim
     
-    def received_recommendation(self, recommendation: list) -> act.Action:
+    def received_recommendation(self, recommendation: list):
         rate_recommendation = super().received_recommendation(recommendation)
         rates = [r[0] for r in rate_recommendation]
         changed = self.change_inter(recommendation,rates)
@@ -174,9 +172,9 @@ class UniformAgent(Agent):
 
 class LooselyPreferenceAgent(Agent):
     """ Loosely Preference User """
-    def __init__(self, id: int, preference_songs:list, listenin_behavior = Listening_behavior.Casuals):
+    def __init__(self, id: int, preference_songs:list, listening_behavior = Listening_behavior.Casuals):
         self.id = id
-        self.listenin_behavior = listenin_behavior
+        self.listening_behavior = listening_behavior
         self.behavior_dist = Behavior_Distribution(interact_dist={'empty':0.50,'post':0.15,'read':0.35}, change_internal_dist={'yes':0.8,'no':0.2})
         self.preference = {'songs': [], 'artists': [], 'genres': [] }
         for song in preference_songs:
@@ -195,7 +193,7 @@ class LooselyPreferenceAgent(Agent):
         art_sim = simil.jaccard_similarity(self.preference['artists'], song.artists)
         return max(gen_sim,art_sim)
  
-    def received_recommendation(self, recommendation: list) -> act.Action:
+    def received_recommendation(self, recommendation: list):
         rate_recommendation = super().received_recommendation(recommendation)
         rates = [r[0] for r in rate_recommendation]
         changed = self.change_inter(recommendation,rates)
@@ -234,9 +232,9 @@ class LooselyPreferenceAgent(Agent):
 
 class StronglyPreferenceAgent(Agent):
     """ Strongly Preference User """
-    def __init__(self, id: int, preference_songs:list, listenin_behavior = Listening_behavior.Casuals):
+    def __init__(self, id: int, preference_songs:list, listening_behavior = Listening_behavior.Casuals):
         self.id = id
-        self.listenin_behavior = listenin_behavior
+        self.listening_behavior = listening_behavior
         self.behavior_dist = Behavior_Distribution(interact_dist={'empty':0.40,'post':0.40,'read':0.20}, change_internal_dist={'yes':0.3,'no':0.7})
         self.preference = {'songs': [], 'artists': [], 'genres': [] }
         for song in preference_songs:
@@ -255,7 +253,7 @@ class StronglyPreferenceAgent(Agent):
         art_sim = simil.jaccard_similarity(self.preference['artists'], song.artists)
         return gen_sim*0.5 + art_sim*0.5
  
-    def received_recommendation(self, recommendation: list) -> act.Action:
+    def received_recommendation(self, recommendation: list):
         rate_recommendation = super().received_recommendation(recommendation)
         rates = [r[0] for r in rate_recommendation]
         changed = self.change_inter(recommendation,rates)
@@ -292,7 +290,6 @@ class StronglyPreferenceAgent(Agent):
         elif action == 'read':
             return act.ReadAction(self)
 
-# print(Listening_behavior(1))
  
 
 

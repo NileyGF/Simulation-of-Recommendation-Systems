@@ -24,15 +24,8 @@ class ContentBasedRecommender(Recommender):
         self.profiling = Profile_learner(userFrame,self.content_simil.songs_list)
         self.filter = Filtering_component(self.content_simil.songs_list)
         self.user_conv = {}
-    
-    # def _print_message(self, song:Song, recom_song):
-    #     rec_items = len(recom_song)
-        
-    #     print(f'The {rec_items} recommended songs for {song} are:')
-    #     for i in range(rec_items):
-    #         print(f"Number {i+1}:")
-    #         print(f"{recom_song[i][0]} with {round(recom_song[i][1], 3)} similarity score") 
-    #         print("--------------------")
+    def get_songs(self):
+        return self.content_simil.songs_list
     def new_user(self,agent:agent.Agent):
         user_id = agent.id
         id = self.user_conv.get(user_id)

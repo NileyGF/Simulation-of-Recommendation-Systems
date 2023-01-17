@@ -24,6 +24,7 @@ class User:
         self.expl_genres = None
         self.prefered_artists = None
         self.prefered_genres = None     
+        self.listening_behavior = None
         self.vector = None
         self.songs_to_recommend = 5
     

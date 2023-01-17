@@ -7,6 +7,7 @@ import time
 import Agents as agent
 import Agents_actions as act
 import content_based
+import knowledge_based
 import Data
 from Songs_Modeling import Song
 from Core import *
@@ -69,7 +70,7 @@ class Music_store():
             
     def user_arrival(self,user:agent.Agent):
         now = self.next_arrival
-        lapse = rnd.gauss(5,0.5)
+        lapse = rnd.gauss(23,0.5)
         if lapse < 0: lapse = 3
         self.next_arrival = int(now + lapse)
         self.num_arrivals +=1
@@ -132,7 +133,7 @@ class Music_store():
         self.next_interact = int(now + lapse)
         self.num_post += 1
 
-        post = action.get_post(self.recommender.content_simil.songs_list)
+        post = action.get_post(self.recommender.get_songs())
         self.events['post'].append((user.id, now, post))
         self.posts.append(post)
         
@@ -158,8 +159,8 @@ class Model:
         dataframe = Data.read_songs_info('music_database_with_lists.csv')
         usersframe = Data.read_users_songs_info('ratings.csv')
         
-
-        recom_dict = {'content-based':content_based.ContentBasedRecommender(dataframe,usersframe)}
+        recom_dict = {'content-based'   : content_based.ContentBasedRecommender(dataframe,usersframe),
+                      'knowledge-based' : knowledge_based.Knowledge_based_recommender(dataframe,usersframe)}
         self.recom_str = recommender_system
         self.recommender = recom_dict.get(self.recom_str)
         self.store = Music_store(self.recommender)
@@ -210,7 +211,8 @@ class Model:
             running = (self.store.time <= self.store.close_time)
 
     def end_state(self,iterations):
-        path_dict = {'content-based':'content-based data'}
+        path_dict = {'content-based'    : 'content-based data',
+                     'knowledge-based'  : 'knowledge-based data'}
         path = path_dict[self.recom_str] + '/'
         uniform = self.changes_for_iter['uniform']
         loosely = self.changes_for_iter['loosely']
@@ -224,7 +226,7 @@ class Model:
         plt.xlabel('Simulation runs')
         plt.ylabel('Amount of changes')
         plt.title('Amount of changes in user\'s preferences per run')
-        title = path + ' results.png'
+        title = path + 'results.png'
         plt.savefig(title)
         # plt.show()
         uniform_cum = []
@@ -247,7 +249,7 @@ class Model:
         plt.xlabel('Simulation runs')
         plt.ylabel('Cumulative amount of changes')
         plt.title('Cumulative amount of changes in user\'s preferences per run')
-        title = path + ' results cumulative.png'
+        title = path + 'results cumulative.png'
         plt.savefig(title)
         # plt.show()
         
@@ -274,8 +276,14 @@ class Model:
             else:
                 pass
 
+# start = time.time()
+# model = Model('content-based')
+# model.simulate(repeat=30,duration=1440)
+# end = time.time()
+# print('running time:', round(end - start,4),'sec')
+
 start = time.time()
-model = Model('content_based')
-model.simulate(repeat=30,duration=1440)
+model = Model('knowledge-based')
+model.simulate(repeat=30,duration=700)
 end = time.time()
 print('running time:', round(end - start,4),'sec')

@@ -10,6 +10,7 @@ class Song:
         self.artists = artists
         self.genres = genres
         self.listen_count = listen_count
+        self.vector = None
 
     def __str__(self) -> str:
         string = self.title + ' - '
@@ -56,25 +57,25 @@ class Song:
             count += 1
         return self.similarities
            
-    def _cosine_list(freq_matrix:np.ndarray,vector):
-        cosine_sim = []
-        v_norm = np.linalg.norm(vector)
+    # def _cosine_list(freq_matrix:np.ndarray,vector):
+    #     cosine_sim = []
+    #     v_norm = np.linalg.norm(vector)
         
-        for t in range(freq_matrix.shape[1]):
-            t_norm = np.linalg.norm(freq_matrix[:,t])
-            norm_prod = v_norm * t_norm
-            t_x_v = np.dot(freq_matrix[:,t],vector)
+    #     for t in range(freq_matrix.shape[1]):
+    #         t_norm = np.linalg.norm(freq_matrix[:,t])
+    #         norm_prod = v_norm * t_norm
+    #         t_x_v = np.dot(freq_matrix[:,t],vector)
 
-            if t_x_v == 0 or norm_prod == 0:
-                cosine_sim.append(0)
-            else:
-                cosine_sim.append( t_x_v / norm_prod )
-        return cosine_sim
+    #         if t_x_v == 0 or norm_prod == 0:
+    #             cosine_sim.append(0)
+    #         else:
+    #             cosine_sim.append( t_x_v / norm_prod )
+    #     return cosine_sim
 
-    def title_corr_matrix(songs_list:list):
-        freq_matrix = util.vectorize_songs(songs_list)
-        corr = np.ndarray((len(songs_list),len(songs_list)), dtype=float)
-        for t in range(freq_matrix.shape[1]):
-            corr[:,t] = Song._cosine_list(freq_matrix,freq_matrix[:,t])
-        return corr
+    # def title_corr_matrix(songs_list:list):
+    #     freq_matrix = util.vectorize_songs(songs_list)
+    #     corr = np.ndarray((len(songs_list),len(songs_list)), dtype=float)
+    #     for t in range(freq_matrix.shape[1]):
+    #         corr[:,t] = Song._cosine_list(freq_matrix,freq_matrix[:,t])
+    #     return corr
     
